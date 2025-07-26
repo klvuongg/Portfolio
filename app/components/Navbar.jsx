@@ -1,9 +1,34 @@
+import Dock from '@/effects/Dock.jsx'
 import { assets } from '@/assets/assets'
 import Image from 'next/image'
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
+
+const dockItems = [
+  {
+    label: 'Home',
+    onClick: () => window.location.hash = '#top',
+  },
+  {
+    label: 'About me',
+    onClick: () => window.location.hash = '#about',
+  },
+  {
+    label: 'Tools',
+    onClick: () => window.location.hash = '#tools',
+  },
+  {
+    label: 'Experience',
+    onClick: () => window.location.hash = '#experience',
+  },
+  {
+    label: 'Projects',
+    onClick: () => window.location.hash = '#projects',
+  },
+];
+
 
 const Navbar = () => {
-
+  const [isScroll, setIsScroll] = useState(false);
   const sideMenuRef = useRef();
    
   const openMenu = () => {
@@ -14,35 +39,57 @@ const Navbar = () => {
     sideMenuRef.current.style.transform = 'translateX(16rem)'
   }
 
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if(scrollY > 50) {
+        setIsScroll(true);
+      } 
+      else {
+        setIsScroll(false);
+      }
+    })
+  });
+
   return (
     <>
     <div className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%]'>
       <Image src={assets.header_bg_color} alt='' className='w-full' />
     </div>
-      <nav className='w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 
-      flex items-center justify-between z-50'>
-        <a href="#top">
-            <Image src={assets.logo} className='w-28 alt=""
-            cursor-pointer mr-14'/>
-        </a>
+      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm" : "bg-white shadow-sm" }`}>
+        <a href="#top" className='w-28 text-3xl font-medium font-Outfit'>Kaitlyn.</a>
 
-        <ul className='hidden md:flex items-center gap-6 lg:gap-8
-        rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50'>
-            <li><a className='font-Ovo' href="#top">Home</a></li>
-            <li><a className='font-Ovo' href="#about">About me</a></li>
-            <li><a className='font-Ovo' href="#services">Services</a></li>
-            <li><a className='font-Ovo' href="#work">My Work</a></li>
-            <li><a className='font-Ovo' href="#contact">Contact me</a></li>
-        </ul>
+        <Dock
+          items={dockItems.map(item => ({
+            ...item,
+            children: <span className="font-Ovo">{item.label}</span>
+          }))}
+        />
 
-        <div className='flex items-center gap-4'> 
-            <button> 
-              <Image src={assets.moon_icon} alt='' className='w-6' />
-            </button>
-
-            <a href="#contact" className='hidden lg:flex items-center gap-3 px-10
-            py-2.5 border border-gray-500 rounded-full ml-4 font-Ovo'>Contact 
-            <Image src={assets.arrow_icon} alt="" className='w-3'/></a>
+        <div className='flex items-center gap-6'>
+          <div className='relative group'>
+              <a target='_blank' href="https://github.com/klvuongg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" width={30} height={35} />
+              </a>
+              <span className="absolute left-1/2 -translate-x-1/2 bottom-[-2.2rem] px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                GitHub
+              </span>
+          </div>
+          <div className='relative group'>
+              <a target='_blank' href="https://www.linkedin.com/in/kaitlyn-vuong-7901222a6?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BaYwCzJnGQpacpsropzkdsQ%3D%3D">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"  width={30} height={35} />
+              </a>
+              <span className="absolute left-1/2 -translate-x-1/2 bottom-[-2.2rem] px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                LinkedIn
+              </span>
+          </div>
+          <div className='relative group'>
+              <a href="#contact">
+                <img src="https://www.gstatic.com/marketing-cms/assets/images/66/ac/14b165e647fd85c824bfbe5d6bc5/gmail.webp=s96-fcrop64=1,00000000ffffffff-rw"  width={30} height={35} />
+              </a>
+              <span className="absolute left-1/2 -translate-x-1/2 bottom-[-2.2rem] px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                khanhlinhvuongklv@gmail.com
+              </span>
+          </div>
 
             <button className='block md:hidden ml-3' onClick={openMenu}>
               <Image src={assets.menu_black} alt='' className='w-6' />
@@ -61,9 +108,9 @@ const Navbar = () => {
 
           <li><a className='font-Ovo' onClick={closeMenu} href="#top">Home</a></li>
           <li><a className='font-Ovo' onClick={closeMenu} href="#about">About me</a></li>
-          <li><a className='font-Ovo' onClick={closeMenu} href="#services">Services</a></li>
-          <li><a className='font-Ovo' onClick={closeMenu} href="#work">My Work</a></li>
-          <li><a className='font-Ovo' onClick={closeMenu} href="#contact">Contact me</a></li>
+          <li><a className='font-Ovo' onClick={closeMenu} href="#experience">My Experience</a></li>
+          <li><a className='font-Ovo' onClick={closeMenu} href="#projects">Projects</a></li>
+          <li><a className='font-Ovo' onClick={closeMenu} href="#tools">Tools</a></li>
         </ul>
 
       </nav>
