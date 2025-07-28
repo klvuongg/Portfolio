@@ -57,7 +57,7 @@ const Navbar = () => {
     </div>
       <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-2 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm" : "bg-white shadow-sm" }`}>
         <a href="#top">
-            <Image src={assets.name} className='w-38 alt=""
+            <Image src={assets.name} alt="" className='w-38 
             cursor-pointer mr-14'/>
         </a>
 

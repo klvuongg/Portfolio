@@ -1,5 +1,6 @@
 import { assets, infoList, toolsData } from '@/assets/assets'
 import Image from 'next/image'
+import StickerPeel from '@/effects/StickerPeel'
 import React from 'react'
 
 const About = () => {
@@ -15,7 +16,19 @@ const About = () => {
       <div className='flex w-full flex-col lg:flex-row items-center
       gap-20 my-20'>
         <div className='w-64 sm:w-80 rounded-3xl max-w-none'>
-            <Image src={assets.user_image} alt='user' className='w-full rounded-3xl' />
+            <Image src={assets.user_image} alt='user' className='w-full h-auto rounded-3xl block' />
+            <div className='absolute top-0 left-0 w-full h-full z-10' >
+              <StickerPeel
+                imageSrc={assets.sticker.src}
+                width={455} 
+                rotate={0}
+                peelBackHoverPct={40}
+                peelBackActivePct={90}
+                shadowIntensity={0.6}
+                lightingIntensity={0.1}
+                initialPosition={{ x: 148, y: 140 }}
+              />
+            </div>
         </div>
         <div className='flex-1'>
             <p className='mb-10 max-w-6xl font-Ovo'>

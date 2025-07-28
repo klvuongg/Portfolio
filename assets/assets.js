@@ -38,6 +38,7 @@ import right_arrow_bold_dark from './right-arrow-bold-dark.png';
 import ontario_public_service_leadership_logo from './ontario_public_service_leadership_logo.jpeg';
 import hello from './hello.gif';
 import wow from './wow.gif';
+import sticker from './sticker.png';
 
 export const assets = {
     user_image,
@@ -79,7 +80,8 @@ export const assets = {
     right_arrow_bold_dark,
     ontario_public_service_leadership_logo,
     hello,
-    wow
+    wow,
+    sticker
 };
 
 export const workData = [
