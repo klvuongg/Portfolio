@@ -1,4 +1,4 @@
-import { assets, serviceData } from '@/assets/assets'
+import { assets } from '@/assets/assets'
 import Image from 'next/image'
 import React from 'react'
 
@@ -16,21 +16,34 @@ const Experience = () => {
     </p>
     
     <div className='grid grid-cols-auto gap-6 my-10'>
-       {serviceData.map(({icon, title, description, link}, index) => (
-            <div key={index}
-            className='border border-gray-400 rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-lightHover
-            hover:-translate-y-1 duration-500'>
-                <Image src={icon} alt='' className='w-10'/>
-                <h3 className='text-lg my-4 text-gray-700'>{title}</h3>
-                <p className='text-sm text-gray-600 leading-5'>
-                    {description}
-                </p>
-                <a href={link} className='flex items-center gap-2 text-sm mt-5'>
-                    View Project <Image src={assets.right_arrow} alt='' className='w-4' />
+      <div className='flex flex-col bg-white border border-gray-400 rounded-lg overflow-hidden hover:bg-lightHover hover:-translate-y-2 duration-500 hover:shadow-black p-10'>
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-2">
+                <h4 className="text-3xl font-outfit font-medium mb-2">Tester Co-op
+                    <span className="mt-2 block lg:hidden text-base italic font-outfit">May 2025 - Present</span>
+                </h4>
+                <h3 className="hidden lg:inline italic font-outfit text-base lg:ml-auto">
+                    May 2025 - Present
+                </h3>
+            </div>
+            <div className="flex space-x-3">
+                <a href="https://www.linkedin.com/company/ontario-public-service-leadership/">
+                    <Image src={assets.ontario_public_service_leadership_logo} alt="" className="w-8" />
+                </a>
+                <a href="http://www.ontario.ca/">
+                    <h3 className="font-Outfit text-xl mt-1 font-medium hover:text-gray-600">Ontario Public Service | Government of Ontario</h3>
                 </a>
             </div>
-          )
-        )}
+                <ul className="list-disc list-inside space-y-2 text-left text-sm sm:text-base font-Outfit mt-5">
+                    <li>Understanding the Software Development Life Cycle (SDLC) from a testing perspective, recognizing where manual testing fits into each phase.</li>
+                    <li>Operating within an Agile methodology, participating in sprint planning, daily stand-ups, and sprint reviews to align testing efforts with development cycles.</li>
+                    <li>Translating user stories into detailed, executable test cases, ensuring comprehensive coverage for new features and changes.</li>
+                    <li>Identifying, documenting, and tracking bugs and related issues in Jira, including steps to reproduce, actual vs. expected results, and severity/priority.</li>
+                    <li>Writing clear, concise, and reproducible test steps for manual execution, outlining expected results and identifying edge cases.</li>
+                    <li>Manually executing test cases meticulously to verify functionality, usability, and adherence to defined requirements.</li>
+                    <li>Collaborating closely with product owners, developers, and other team members within the Agile framework to clarify requirements, discuss system behavior, and ensure quality deliverables.</li>
+                    <li>Performing thorough regression testing to confirm that new features or bug fixes do not introduce defects into existing functionalities.</li>
+                </ul>
+      </div>
     </div>
   </div>
   )

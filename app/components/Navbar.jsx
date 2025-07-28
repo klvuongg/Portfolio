@@ -55,15 +55,17 @@ const Navbar = () => {
     <div className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%]'>
       <Image src={assets.header_bg_color} alt='' className='w-full' />
     </div>
-      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm" : "bg-white shadow-sm" }`}>
+      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-3 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm" : "bg-white shadow-sm" }`}>
         <a href="#top" className='w-28 text-3xl font-medium font-Outfit'>Kaitlyn.</a>
 
-        <Dock
+        <div className={`hidden md:flex items-center gap-6 lg:gap-8 px-12 py-2 ${isScroll ? "" : "bg-white bg-opacity-50" }`}>
+          <Dock
           items={dockItems.map(item => ({
             ...item,
             children: <span className="font-Ovo">{item.label}</span>
           }))}
-        />
+          />
+        </div>
 
         <div className='flex items-center gap-6'>
           <div className='relative group'>
@@ -108,9 +110,9 @@ const Navbar = () => {
 
           <li><a className='font-Ovo' onClick={closeMenu} href="#top">Home</a></li>
           <li><a className='font-Ovo' onClick={closeMenu} href="#about">About me</a></li>
+          <li><a className='font-Ovo' onClick={closeMenu} href="#tools">Tools</a></li>
           <li><a className='font-Ovo' onClick={closeMenu} href="#experience">My Experience</a></li>
           <li><a className='font-Ovo' onClick={closeMenu} href="#projects">Projects</a></li>
-          <li><a className='font-Ovo' onClick={closeMenu} href="#tools">Tools</a></li>
         </ul>
 
       </nav>
