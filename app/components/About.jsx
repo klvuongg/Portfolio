@@ -4,8 +4,8 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div id='about' className='w-full px-[12%] py-10
-    scroll-mt-20'>
+    <div id='about' className='w-full px-[12%] py-10 pb-32
+    scroll-mt-20 relative'>
       <h4 className='text-center mb-2 text-lg font-Ovo'>
         Introduction
       </h4>
@@ -21,9 +21,9 @@ const About = () => {
             <p className='mb-10 max-w-6xl font-Ovo'>
                 I am a passionate, self-driven computer science student with an interest in building practical and meaningful full-stack applications
             </p>
-            <ul className='grid grid-cols-1 sm:grid-cols-2 gap-6 w-full
+            <ul className='grid grid-cols-1 sm:grid-cols-2 gap-8 w-full
             max-w-6xl'>
-                {infoList.map(({icon, iconDark, title, description}, 
+                {infoList.map(({icon, title, description}, 
                 index) => (
                     <li className='border-[0.5px] border-gray-400
                     rounded-xl p-6 cursor-pointer hover:bg-lightHover
@@ -46,6 +46,9 @@ const About = () => {
             </ul>
         </div>
       </div>
+      <div className='absolute right-15 bottom-0 -translate-y-20 z-10'>
+        <Image src={assets.wow} alt='' className='w-41' />
+    </div>
     </div>
   )
 }

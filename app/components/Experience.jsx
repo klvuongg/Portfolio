@@ -1,4 +1,5 @@
 import { assets } from '@/assets/assets'
+import TiltedCard from '@/effects/TiltedCard'
 import Image from 'next/image'
 import React from 'react'
 
@@ -16,12 +17,20 @@ const Experience = () => {
     </p>
     
     <div className='grid grid-cols-auto gap-6 my-10'>
-      <div className='flex flex-col bg-white border border-gray-400 rounded-lg overflow-hidden hover:bg-lightHover hover:-translate-y-2 duration-500 hover:shadow-black p-10'>
+      <TiltedCard
+        altText="OPS Experience"
+        containerWidth="100%"
+        containerHeight="100%"
+        scaleOnHover={1.03}
+        rotateAmplitude={3}
+        displayOverlayContent={true}
+        overlayContent={
+          <div className='flex flex-col bg-white border border-gray-400 rounded-lg overflow-hidden hover:-translate-y-2 duration-500 hover:shadow-black p-10'>
             <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-2">
-                <h4 className="text-3xl font-outfit font-medium mb-2">Tester Co-op
-                    <span className="mt-2 block lg:hidden text-base italic font-outfit">May 2025 - Present</span>
+                <h4 className="text-3xl font-Outfit font-medium mb-2">Tester Co-op
+                    <span className="mt-2 block lg:hidden text-base italic font-Outfit">May 2025 - Present</span>
                 </h4>
-                <h3 className="hidden lg:inline italic font-outfit text-base lg:ml-auto">
+                <h3 className="hidden lg:inline italic font-Outfit text-base lg:ml-auto">
                     May 2025 - Present
                 </h3>
             </div>
@@ -43,7 +52,9 @@ const Experience = () => {
                     <li>Collaborating closely with product owners, developers, and other team members within the Agile framework to clarify requirements, discuss system behavior, and ensure quality deliverables.</li>
                     <li>Performing thorough regression testing to confirm that new features or bug fixes do not introduce defects into existing functionalities.</li>
                 </ul>
-      </div>
+          </div>
+        }
+      />
     </div>
   </div>
   )

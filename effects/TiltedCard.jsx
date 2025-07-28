@@ -1,7 +1,7 @@
 // experience
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import "./TiltedCard.css";
+import "@/css/TiltedCard.css";
 
 const springValues = {
   damping: 30,
@@ -95,45 +95,40 @@ export default function TiltedCard({
       <motion.div
         className="tilted-card-inner"
         style={{
-          width: imageWidth,
-          height: imageHeight,
+          width: displayOverlayContent ? "100%" : imageWidth,
+          height: displayOverlayContent ? "100%" : imageHeight,
           rotateX,
           rotateY,
           scale,
         }}
       >
-        <motion.img
-          src={imageSrc}
-          alt={altText}
-          className="tilted-card-img"
-          style={{
-            width: imageWidth,
-            height: imageHeight,
-          }}
-        />
+        {imageSrc && (
+          <motion.img
+            src={imageSrc}
+            alt={altText}
+            className="tilted-card-img"
+            style={{
+              width: imageWidth,
+              height: imageHeight,
+            }}
+          />
+        )}
 
         {displayOverlayContent && overlayContent && (
           <motion.div
             className="tilted-card-overlay"
+            style={{
+              position: "relative", 
+              width: "100%",
+              height: "100%",
+              zIndex: 2,
+              transform: "translateZ(30px)",
+            }}
           >
             {overlayContent}
           </motion.div>
         )}
       </motion.div>
-
-      {showTooltip && (
-        <motion.figcaption
-          className="tilted-card-caption"
-          style={{
-            x,
-            y,
-            opacity,
-            rotate: rotateFigcaption,
-          }}
-        >
-          {captionText}
-        </motion.figcaption>
-      )}
     </figure>
   );
 }

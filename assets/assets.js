@@ -11,7 +11,7 @@ import figma from './figma.png';
 import git from './git.png';
 import mongodb from './mongodb.png';
 import right_arrow_white from './right-arrow-white.png';
-import logo from './logo.png';
+import name from './name.png';
 import logo_dark from './logo_dark.png';
 import mail_icon from './mail_icon.png';
 import mail_icon_dark from './mail_icon_dark.png';
@@ -36,6 +36,8 @@ import send_icon from './send-icon.png';
 import right_arrow_bold from './right-arrow-bold.png';
 import right_arrow_bold_dark from './right-arrow-bold-dark.png';
 import ontario_public_service_leadership_logo from './ontario_public_service_leadership_logo.jpeg';
+import hello from './hello.gif';
+import wow from './wow.gif';
 
 export const assets = {
     user_image,
@@ -51,7 +53,7 @@ export const assets = {
     git,
     mongodb,
     right_arrow_white,
-    logo,
+    name,
     logo_dark,
     mail_icon,
     mail_icon_dark,
@@ -75,7 +77,9 @@ export const assets = {
     send_icon,
     right_arrow_bold,
     right_arrow_bold_dark,
-    ontario_public_service_leadership_logo
+    ontario_public_service_leadership_logo,
+    hello,
+    wow
 };
 
 export const workData = [

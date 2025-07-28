@@ -55,8 +55,11 @@ const Navbar = () => {
     <div className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%]'>
       <Image src={assets.header_bg_color} alt='' className='w-full' />
     </div>
-      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-3 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm" : "bg-white shadow-sm" }`}>
-        <a href="#top" className='w-28 text-3xl font-medium font-Outfit'>Kaitlyn.</a>
+      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-2 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm" : "bg-white shadow-sm" }`}>
+        <a href="#top">
+            <Image src={assets.name} className='w-38 alt=""
+            cursor-pointer mr-14'/>
+        </a>
 
         <div className={`hidden md:flex items-center gap-6 lg:gap-8 px-12 py-2 ${isScroll ? "" : "bg-white bg-opacity-50" }`}>
           <Dock
