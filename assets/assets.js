@@ -39,6 +39,7 @@ import ontario_public_service_leadership_logo from './ontario_public_service_lea
 import hello from './hello.gif';
 import wow from './wow.gif';
 import sticker from './sticker.png';
+import peel from './peel_me.gif';
 
 export const assets = {
     user_image,
@@ -81,7 +82,8 @@ export const assets = {
     ontario_public_service_leadership_logo,
     hello,
     wow,
-    sticker
+    sticker,
+    peel
 };
 
 export const workData = [

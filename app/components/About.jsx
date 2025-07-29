@@ -13,22 +13,53 @@ const About = () => {
       <h2 className='text-center text-5xl font-Ovo'>
         About me
       </h2>
-      <div className='flex w-full flex-col lg:flex-row items-center
-      gap-20 my-20'>
-        <div className='w-64 sm:w-80 rounded-3xl max-w-none'>
+      <div className='flex w-full flex-col lg:flex-row items-center gap-20 my-20'>
+        <div className='relative w-64 sm:w-80 rounded-3xl max-w-none'>
             <Image src={assets.user_image} alt='user' className='w-full h-auto rounded-3xl block' />
-            <div className='absolute top-0 left-0 w-full h-full z-10' >
-              <StickerPeel
-                imageSrc={assets.sticker.src}
-                width={455} 
-                rotate={0}
-                peelBackHoverPct={40}
-                peelBackActivePct={90}
-                shadowIntensity={0.6}
-                lightingIntensity={0.1}
-                initialPosition={{ x: 148, y: 140 }}
-              />
+            <div className='absolute top-0 left-0 w-full h-full pointer-events-none z-40'>
+            <div className='relative w-full h-full'>
+              <div 
+                className='absolute pointer-events-auto'
+                style={{
+                  top: '-25%', 
+                  left: '-25%', 
+                  width: '140%', 
+                  height: '125%'
+                }}
+              >
+                <StickerPeel
+                  imageSrc={assets.sticker.src}
+                  width={600}
+                  rotate={0}
+                  peelBackHoverPct={40}
+                  peelBackActivePct={90}
+                  shadowIntensity={0.6}
+                  lightingIntensity={0.1}
+                  initialPosition="center"
+                  className=""
+                />
+              </div>
             </div>
+          </div>
+          <div className='absolute top-0 left-0 w-full h-full pointer-events-none z-10'>
+            <div className='relative w-full h-full'>
+              <div 
+                className='absolute'
+                style={{
+                  bottom: '108%', 
+                  left: '-10%',
+                  transform: 'translateX(-50%)', 
+                  width: 'clamp(40px, 30vw, 200px)'
+                }}
+              >
+                <Image 
+                  src={assets.peel} 
+                  alt='peel arrow' 
+                  className='w-full h-auto' 
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <div className='flex-1'>
             <p className='mb-10 max-w-6xl font-Ovo'>
@@ -61,7 +92,7 @@ const About = () => {
       </div>
       <div className='absolute right-15 bottom-0 -translate-y-20 z-10'>
         <Image src={assets.wow} alt='' className='w-41' />
-    </div>
+      </div>
     </div>
   )
 }
