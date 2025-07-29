@@ -40,6 +40,10 @@ import hello from './hello.gif';
 import wow from './wow.gif';
 import sticker from './sticker.png';
 import peel from './peel_me.gif';
+import programming_languages from './programming_language.png';
+import database from './database.png';
+import operating_system from './operating_system.png';
+import tools from './tools.png';
 
 export const assets = {
     user_image,
@@ -83,7 +87,11 @@ export const assets = {
     hello,
     wow,
     sticker,
-    peel
+    peel,
+    programming_languages,
+    database,
+    operating_system,
+    tools,
 };
 
 export const workData = [
@@ -109,18 +117,14 @@ export const workData = [
     },
 ]
 
-export const serviceData = [
-    { icon: assets.web_icon, title: 'Web design', description: 'Web development is the process of building, programming...', link: '' },
-    { icon: assets.mobile_icon, title: 'Mobile app', description: 'Mobile app development involves creating software for mobile devices...', link: '' },
-    { icon: assets.ui_icon, title: 'UI/UX design', description: 'UI/UX design focuses on creating a seamless user experience...', link: '' },
-    { icon: assets.graphics_icon, title: 'Graphics design', description: 'Creative design solutions to enhance visual communication...', link: '' },
-]
-
 export const infoList = [
     { icon: assets.edu_icon, iconDark: assets.edu_icon_dark, title: 'Education', description: ['Computer Programming and Analysis', 'Seneca Polytechnic', 'Expected Graduation: 2027', 'GPA: 4.0'] },
     { icon: assets.code_icon, iconDark: assets.code_icon_dark, title: 'Skills', description: ['Full Stack Development', 'Web Development', 'Object Oriented Programming', 'Software Testing', 'Database Management'] },
 ]
 
 export const toolsData = [
-    assets.vscode, assets.firebase, assets.mongodb, assets.figma, assets.git
+    { icon: assets.programming_languages, title: 'Languages, Frameworks and Libraries', description: ['C', 'C++', 'C#', 'Python', 'JavaScript', 'Java', 'HTML', 'CSS', 'XAML', 'React', 'Django', 'Node.js', 'Express.js', 'Spring Boot', 'Windows Presentation Foundation (WPF)', 'Bootstrap', 'Tailwind CSS'] },
+    { icon: assets.database, title: 'Databases', description: ['Oracle SQL', 'MongoDB', 'PostgreSQL' ] },
+    { icon: assets.operating_system, title: 'Operating System', description: ['Linux', 'Windows', 'Bash', 'PowerShell'] },
+    { icon: assets.tools, title: 'Other Tools', description: ['Jira', 'Visual Studio (2022)', 'Visual Studio Code', 'GitHub', 'TortoiseGit', 'PythonAnywhere', 'Vercel', 'Visual Paradigm', 'Figmam', 'Canva']},
 ];
