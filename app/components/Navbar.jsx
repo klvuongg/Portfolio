@@ -61,7 +61,7 @@ const Navbar = () => {
             cursor-pointer mr-14'/>
         </a>
 
-        <div className={`hidden md:flex items-center gap-6 lg:gap-8 px-12 py-2 ${isScroll ? "" : "bg-white bg-opacity-50" }`}>
+        <div className={`hidden lg:flex items-center gap-6 lg:gap-8 px-12 py-2 ${isScroll ? "" : "bg-white bg-opacity-50" }`}>
           <Dock
           items={dockItems.map(item => ({
             ...item,
@@ -96,7 +96,7 @@ const Navbar = () => {
               </span>
           </div>
 
-            <button className='block md:hidden ml-3' onClick={openMenu}>
+            <button className='block lg:hidden ml-3' onClick={openMenu}>
               <Image src={assets.menu_black} alt='' className='w-6' />
             </button>
         </div>

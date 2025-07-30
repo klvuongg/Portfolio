@@ -126,5 +126,5 @@ export const toolsData = [
     { icon: assets.programming_languages, title: 'Languages, Frameworks and Libraries', description: ['C', 'C++', 'C#', 'Python', 'JavaScript', 'Java', 'HTML', 'CSS', 'XAML', 'React', 'Django', 'Node.js', 'Express.js', 'Spring Boot', 'Windows Presentation Foundation (WPF)', 'Bootstrap', 'Tailwind CSS'] },
     { icon: assets.database, title: 'Databases', description: ['Oracle SQL', 'MongoDB', 'PostgreSQL' ] },
     { icon: assets.operating_system, title: 'Operating System', description: ['Linux', 'Windows', 'Bash', 'PowerShell'] },
-    { icon: assets.tools, title: 'Other Tools', description: ['Jira', 'Visual Studio (2022)', 'Visual Studio Code', 'GitHub', 'TortoiseGit', 'PythonAnywhere', 'Vercel', 'Visual Paradigm', 'Figmam', 'Canva']},
+    { icon: assets.tools, title: 'Other Tools', description: ['Jira', 'Visual Studio (2022)', 'Visual Studio Code', 'GitHub', 'TortoiseGit', 'PythonAnywhere', 'Vercel', 'Visual Paradigm', 'Figma', 'Canva']},
 ];
