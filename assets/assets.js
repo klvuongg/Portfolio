@@ -44,7 +44,6 @@ import programming_languages from './programming_language.png';
 import database from './database.png';
 import operating_system from './operating_system.png';
 import tools from './tools.png';
-
 export const assets = {
     user_image,
     code_icon,
@@ -91,7 +90,7 @@ export const assets = {
     programming_languages,
     database,
     operating_system,
-    tools,
+    tools
 };
 
 export const workData = [
