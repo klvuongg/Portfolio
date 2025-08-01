@@ -1,9 +1,14 @@
 :root {
   --folder-color: #70a1ff;
-  --folder-back-color: #4785ff;
-  --paper-1: #e6e6e6;
-  --paper-2: #f2f2f2;
-  --paper-3: #ffffff;
+  --folder-back-color: #ffffff;
+  --paper-1: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+              url('/assets/paper_texture.png');
+  --paper-2: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+              url('/assets/paper_texture.png');
+  --paper-3: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+              url('/assets/paper_texture.png');
+  --paper-4: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+              url('/assets/paper_texture.png');
 }
 
 .folder {
@@ -27,34 +32,60 @@
   transform: skew(-15deg) scaleY(0.6);
 }
 
+.folder.open:hover {
+  transform: translateY(-46px) scale(0.55);
+}
+
 .folder.open {
-  transform: translateY(-8px);
+  transform: translateY(-45px) scale(0.5);
 }
 
 .folder.open .paper:nth-child(1) {
-  transform: translate(-120%, -70%) rotateZ(-15deg);
+  transform: translate(-130%, -65%) rotateZ(-15deg) scale(0.75);
+  height: 80%;
+  opacity: 0.4;
 }
 
-.folder.open .paper:nth-child(1):hover {
-  transform: translate(-120%, -70%) rotateZ(-15deg) scale(1.1);
+.folder.open .paper:nth-child(1):hover,
+.folder.open .paper:nth-child(1).paper-hovered {
+  transform: translate(-130%, -65%) rotateZ(-18deg) scale(0.8);
+  opacity: 0.6;
 }
 
 .folder.open .paper:nth-child(2) {
-  transform: translate(10%, -70%) rotateZ(15deg);
-  height: 80%;
+  transform: translate(-80%, -120%) rotateZ(-8deg) scale(0.75);
+  height: 65%;
+  opacity: 0.4;
 }
 
-.folder.open .paper:nth-child(2):hover {
-  transform: translate(10%, -70%) rotateZ(15deg) scale(1.1);
+.folder.open .paper:nth-child(2):hover,
+.folder.open .paper:nth-child(2).paper-hovered {
+  transform: translate(-80%, -120%) rotateZ(-5deg) scale(0.8);
+  opacity: 0.6;
 }
 
 .folder.open .paper:nth-child(3) {
-  transform: translate(-50%, -100%) rotateZ(5deg);
-  height: 80%;
+  transform: translate(-30%, -100%) rotateZ(8deg) scale(0.75);
+  height: 70%;
+  opacity: 0.4;
 }
 
-.folder.open .paper:nth-child(3):hover {
-  transform: translate(-50%, -100%) rotateZ(5deg) scale(1.1);
+.folder.open .paper:nth-child(3):hover,
+.folder.open .paper:nth-child(3).paper-hovered {
+  transform: translate(-30%, -100%) rotateZ(5deg) scale(0.8);
+  opacity: 0.6;
+}
+
+.folder.open .paper:nth-child(4) {
+  transform: translate(20%, -70%) rotateZ(15deg) scale(0.75);
+  height: 75%;
+  opacity: 0.4;
+}
+
+.folder.open .paper:nth-child(4):hover,
+.folder.open .paper:nth-child(4).paper-hovered {
+  transform: translate(20%, -70%) rotateZ(18deg) scale(0.8);
+  opacity: 0.6;
 }
 
 .folder.open .folder__front {
@@ -69,20 +100,23 @@
   position: relative;
   width: 100px;
   height: 80px;
-  background: var(--folder-back-color);
+  background: #FEFFC4;
   border-radius: 0px 10px 10px 10px;
+  border: 1px solid #000000;
 }
 
 .folder__back::after {
   position: absolute;
   z-index: 0;
   bottom: 98%;
-  left: 0;
+  left: -1;
   content: "";
-  width: 30px;
-  height: 10px;
-  background: var(--folder-back-color);
+  width: 32px;
+  height: 12px;
+  background: #FEFFC4;
   border-radius: 5px 5px 0 0;
+  border: 1px solid #000000;
+  border-bottom: none;
 }
 
 .paper {
@@ -93,21 +127,27 @@
   transform: translate(-50%, 10%);
   width: 70%;
   height: 80%;
-  background: var(--paper-1);
+  background: url('/assets/paper_texture.jpg') no-repeat center / cover;
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
 }
 
 .paper:nth-child(2) {
-  background: var(--paper-2);
+  background: url('/assets/paper_texture.jpg') no-repeat center / cover;
   width: 80%;
   height: 70%;
 }
 
 .paper:nth-child(3) {
-  background: var(--paper-3);
+  background: url('/assets/paper_texture.jpg') no-repeat center / cover;
   width: 90%;
   height: 60%;
+}
+
+.paper:nth-child(4) {
+  background: url('/assets/paper_texture.jpg') no-repeat center / cover;
+  width: 85%;
+  height: 65%;
 }
 
 .folder__front {
@@ -115,7 +155,7 @@
   z-index: 3;
   width: 100%;
   height: 100%;
-  background: var(--folder-color);
+  background: url('/assets/folder_cover.gif') no-repeat center / cover;
   border-radius: 5px 10px 10px 10px;
   transform-origin: bottom;
   transition: all 0.3s ease-in-out;

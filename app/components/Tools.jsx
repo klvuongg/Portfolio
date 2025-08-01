@@ -1,28 +1,31 @@
-import dynamic from 'next/dynamic'
-import React, { Suspense } from 'react'
-
-const Lanyard = dynamic(() => import('@/effects/Lanyard'), { 
-  ssr: false,
-  loading: () => <div className="w-full h-80 flex items-center justify-center">Loading...</div>
-})
-
-// Fallback component for loading errors
-const LanyardFallback = ({ title }) => (
-  <div className="w-full h-80 max-w-sm relative flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg">
-    <div className="text-center">
-      <div className="w-16 h-16 bg-gray-300 dark:bg-gray-600 rounded-lg mx-auto mb-4"></div>
-      <p className="text-sm text-gray-600 dark:text-gray-400">{title}</p>
-    </div>
-  </div>
-)
+import Folder from '@/effects/Folder'
+import Image from 'next/image'
+import { toolsData } from '@/assets/assets'
+import React, { useState } from 'react'
 
 const Tools = () => {
-  const cardData = [
-    { model: '/assets/card_language.glb', title: 'Programming Languages' },
-    { model: '/assets/card_database.glb', title: 'Databases' },
-    { model: '/assets/card_operating_system.glb', title: 'Operating Systems' },
-    { model: '/assets/card_other_tools.glb', title: 'Other Tools' }
-  ]
+  const [open, setOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const handleToggle = () => {
+    setOpen(prev => !prev);
+  };
+
+  const handlePaperHover = (index) => {
+    setHoveredIndex(index);
+  };
+
+  const handlePaperLeave = () => {
+    setHoveredIndex(null);
+  };
+
+  const handleCardHover = (index) => {
+    setHoveredIndex(index);
+  };
+
+  const handleCardLeave = () => {
+    setHoveredIndex(null);
+  };
 
   return (
     <section id="tools" className="w-full max-w-8xl mx-auto px-[8%] py-10 scroll-mt-24">
@@ -31,61 +34,63 @@ const Tools = () => {
       </h4>
       <h2 className="text-center text-5xl font-Ovo">My Tools</h2>
       <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">
-        These lanyard cards showcase key tools and technologies I use in 3D interactive form.
+        Click the folder to explore the tools I use, displayed interactively.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center h-full w-full">
-        {cardData.map((card, index) => (
-          <div 
-            key={index} 
-            className="relative w-full min-w-64 h-[46rem] lg:h-[44rem] md:h-[42rem] overflow-hidden"
-            style={{ 
-              transformStyle: 'preserve-3d'
-            }}
-          >
-            <Suspense fallback={<LanyardFallback title={card.title} />}>
-              <ErrorBoundary fallback={<LanyardFallback title={card.title} />}>
-                {card.model ? (
-                  <Lanyard 
-                    model={card.model} 
-                    position={[0, 0, 1]} 
-                    gravity={[0, -4, 0]}
-                    fov={25}
-                  />
-                ) : (
-                  <LanyardFallback title={card.title} />
-                )}
-              </ErrorBoundary>
-            </Suspense>
+      <div className="flex flex-col items-center">
+        {/* Cards shown when folder is open - positioned above folder */}
+        {open && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 w-full max-w-8xl px-6 z-10 relative">
+            {toolsData.map(({ icon, title, description }, i) => (
+              <div 
+                key={i} 
+                className={`bg-white shadow-xl rounded-xl p-8 min-h-[360px] flex flex-col transform transition-all duration-300 border-2 border-gray-200 ${
+                  hoveredIndex === i 
+                    ? 'scale-105 shadow-2xl border-gray-300' 
+                    : 'hover:scale-105 hover:shadow-2xl hover:border-gray-300'
+                }`}
+                onMouseEnter={() => handleCardHover(i)}
+                onMouseLeave={handleCardLeave}
+              >
+                <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+                  <div className="p-2 bg-blue-50 rounded-lg">
+                    <Image src={icon} alt={title} width={32} height={32} />
+                  </div>
+                  <h4 className="font-bold text-gray-800 text-lg leading-tight">{title}</h4>
+                </div>
+                <div className='text-gray-600 text-md' style={{
+                columnCount: Array.isArray(description) && description.length > 12 ? 2 : 1,
+                columnGap: '12px',
+                columnFill: 'balance'
+              }}>
+                {Array.isArray(description)
+                  ? description.map((line, i) => (
+                      <p key={i} className='mb-1'>{line}</p>
+                    ))
+                  : <p>{description}</p>
+                }
+              </div>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
+
+        {/* Folder */}
+        <div className="py-60 relative z-0">
+          <Folder 
+            size={4} 
+            items={[]} 
+            isOpen={open} 
+            onToggle={handleToggle}
+            color="#5227FF"
+            onPaperHover={handlePaperHover}
+            onPaperLeave={handlePaperLeave}
+            hoveredIndex={hoveredIndex}
+          />
+        </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-// Simple Error Boundary component
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error('Lanyard Error:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback;
-    }
-
-    return this.props.children;
-  }
-}
-
-export default Tools
+export default Tools;
