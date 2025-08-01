@@ -25,7 +25,7 @@ const Tools = () => {
   ]
 
   return (
-    <section id="tools" className="w-full max-w-8xl mx-auto px-[8%] py-40 scroll-mt-20">
+    <section id="tools" className="w-full max-w-8xl mx-auto px-[8%] py-10 scroll-mt-24">
       <h4 className="text-center mb-2 text-lg font-Ovo">
         Programming Languages and Tools I Use
       </h4>
@@ -34,16 +34,22 @@ const Tools = () => {
         These lanyard cards showcase key tools and technologies I use in 3D interactive form.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center h-full w-full">
         {cardData.map((card, index) => (
-          <div key={index} className="w-full min-h-[30rem] max-w-lg relative">
+          <div 
+            key={index} 
+            className="relative w-full min-w-64 h-[46rem] lg:h-[44rem] md:h-[42rem] overflow-hidden"
+            style={{ 
+              transformStyle: 'preserve-3d'
+            }}
+          >
             <Suspense fallback={<LanyardFallback title={card.title} />}>
               <ErrorBoundary fallback={<LanyardFallback title={card.title} />}>
                 {card.model ? (
                   <Lanyard 
                     model={card.model} 
-                    position={[0, 0, -8]} 
-                    gravity={[0, -20, 0]}
+                    position={[0, 0, 1]} 
+                    gravity={[0, -4, 0]}
                     fov={25}
                   />
                 ) : (

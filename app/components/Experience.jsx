@@ -5,7 +5,7 @@ import React from 'react'
 
 const Experience = () => {
   return (
-    <div id='experience' className='w-full px-[12%] py-10 scroll-mt-20'>
+    <div id='experience' className='w-full px-[12%] py-10 scroll-mt-24'>
       <h4 className='text-center mb-2 text-lg font-Ovo'>
         My past experience
       </h4>
