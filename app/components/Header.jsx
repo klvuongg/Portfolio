@@ -1,6 +1,7 @@
 import { assets } from '@/assets/assets'
 import Image from 'next/image'
 import React from 'react'
+import SplitText from '@/effects/SplitText'
 
 const Header = () => {
   return (
@@ -9,9 +10,19 @@ const Header = () => {
       <div>
         <Image src={assets.hello} alt='' className='rounded-full w-32'/>
       </div>
-      <h3 className='flex items-end gap-2 text-xl md:text-2xl mb-3 font-Ovo'>
-            Hi! I'm Kaitlyn Vuong <Image src={assets.hand_icon} alt='' className='w-6' />
-      </h3>
+      <SplitText
+        texts={[
+          "Hi! I'm Kaitlyn Vuong 👋🏻",
+          "Welcome to my paw-folio website! 🐇",
+          "Let's hop into my world of coding! 🐰"
+        ]}
+        className="text-xl font-Ovo"
+        delay={3000}
+        duration={0.6}
+        from={{ opacity: 0, y: 40 }}
+        to={{ opacity: 1, y: 0 }}
+        splitType="chars"
+      />
       <h1 className='text-3xl sm:text-6xl lg:text-[66px] font-Ovo'>
         Computer Science student based in Toronto.
       </h1>

@@ -155,8 +155,23 @@
   z-index: 3;
   width: 100%;
   height: 100%;
-  background: url('/assets/folder_cover.gif') no-repeat center / cover;
+  background: url('/assets/folder_cover_left.png') no-repeat center / cover;
   border-radius: 5px 10px 10px 10px;
   transform-origin: bottom;
   transition: all 0.3s ease-in-out;
+  border-left: 1px solid #000000;
+}
+
+.folder__front.right {
+  background: url('/assets/folder_cover.gif') no-repeat center / cover;
+  border-radius: 5px 10px 10px 10px;
+  border-left: none;
+}
+
+.folder.open .folder__front.right {
+  border-right: 1px solid #000000;
+}
+
+.folder:not(.folder--click):hover .folder__front.right {
+  border-right: 1px solid #000000;
 }
