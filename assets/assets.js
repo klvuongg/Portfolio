@@ -44,6 +44,9 @@ import programming_languages from './programming_language.png';
 import database from './database.png';
 import operating_system from './operating_system.png';
 import tools from './tools.png';
+import container_bg from './container_bg.png';
+import active_indicator from './active_indicator.png';
+import inactive_indicator from './inactive_indicator.png';
 
 export const assets = {
     user_image,
@@ -92,27 +95,34 @@ export const assets = {
     database,
     operating_system,
     tools,
+    container_bg,
+    active_indicator,
+    inactive_indicator,
 };
 
-export const workData = [
+export const projectData = [
     {
         title: 'Frontend project',
         description: 'Web Design',
+        id: 1,
         bgImage: '/work-1.png',
     },
     {
         title: 'Geo based app',
+        id: 2,
         description: 'Mobile App',
         bgImage: '/work-2.png',
     },
     {
         title: 'Photography site',
         description: 'Web Design',
+        id: 3,
         bgImage: '/work-3.png',
     },
     {
         title: 'UI/UX designing',
         description: 'UI/UX Design',
+        id: 4,
         bgImage: '/work-4.png',
     },
 ]

@@ -16,7 +16,7 @@ const Experience = () => {
         These are some of the positions I have had worked as during my co-op terms, where I gained valuable experience in software development and real-world applications.
     </p>
     
-    <div className='grid grid-cols-auto gap-6 my-10'>
+    <div className='grid grid-cols-auto gap-6 my-20'>
       <TiltedCard
         altText="OPS Experience"
         containerWidth="100%"
