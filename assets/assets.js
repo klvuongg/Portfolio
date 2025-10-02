@@ -47,6 +47,8 @@ import tools from './tools.png';
 import container_bg from './container_bg.png';
 import active_indicator from './active_indicator.png';
 import inactive_indicator from './inactive_indicator.png';
+import github from './github.png';
+import pythonAnywhere from './pythonAnywhere.png';
 
 export const assets = {
     user_image,
@@ -98,32 +100,61 @@ export const assets = {
     container_bg,
     active_indicator,
     inactive_indicator,
+    github,
+    pythonAnywhere,
 };
 
 export const projectData = [
     {
-        title: 'Frontend project',
-        description: 'Web Design',
+        title: 'Biodiversity Solutions Website',
+        description: ['An open-source website for biodiversity project management. Explore categorized projects now; sign in to contribute, update, and deploy new solutions.', 'Technologies used: Node.js, JavaScript, TailwindCSS, HTML, CSS, PostgreSQL, MongoDB, Vercel.'],
         id: 1,
-        bgImage: '/work-1.png',
+        bgImage: '/BioDivers.JPG',
+        link: 'https://github.com/klvuongg/Biodiversity-Solutions-App.git',
+        deployLink: 'https://biodiversity-solutions-app.vercel.app/',
     },
     {
-        title: 'Geo based app',
+        title: 'Web Blog',
         id: 2,
-        description: 'Mobile App',
-        bgImage: '/work-2.png',
+        description: ['A full-stack web blog application where users can create, read, update, and delete blog posts.', 'Technologies used: Django, Python, CSS, Django Admin, PythonAnywhere.'],
+        bgImage: '/WebBlog.JPG',
+        link: 'https://github.com/klvuongg/Web-Blog.git',
+        deployLink: 'https://klvuong.pythonanywhere.com/',
     },
     {
-        title: 'Photography site',
-        description: 'Web Design',
+        title: 'Portfolio Website',
+        description: ['My interactive digital portfolio. Explore my skills and work through engaging, hands-on demos and creatively designed, cute presentation.', 'Technologies used: React, Next.js, JavaScript, TailwindCSS, Vercel.'],
         id: 3,
-        bgImage: '/work-3.png',
+        bgImage: '/Portfolio.JPG',
+        link: 'https://github.com/klvuongg/Portfolio.git',
     },
     {
-        title: 'UI/UX designing',
-        description: 'UI/UX Design',
+        title: 'RPG Game',
+        description: ['A role-playing game with quests, monster fights, and rewards with an interactive UI screen.', 'Technologies used: C#, Object-Oriented Programming, Windows Presentation Foundation (WPF).'],
         id: 4,
-        bgImage: '/work-4.png',
+        bgImage: '/RPGGame.JPG',
+        link: 'https://github.com/klvuongg/RPG-Game.git',
+    },
+    {
+        title: 'Assembly Line System',
+        description: ['A sequential assembly line system that tracks furniture inventory, generates unique serial numbers, and processes customer orders based on a defined production flow.', 'Technologies used: C++, Object-Oriented Programming, File Handling.'],
+        id: 5,
+        bgImage: '/AssemblyLine.JPG',
+        link: 'https://github.com/klvuongg/Assembly-Line-System.git',
+    },
+    {
+        title: 'Library Application',
+        description: ['A simple application replicating a library system, allowing users to add, remove, checkout, and return books.', 'Technologies used: C, Object-Oriented Programming, File Handling.'],
+        id: 6,
+        bgImage: '/LibApp.JPG',
+        link: 'https://github.com/klvuongg/Library-Application.git',
+    },
+    {
+        title: 'BiteByte App',
+        description: ['BiteByte: A successful hackathon collaboration delivering an accessible, AI-powered app. We teamed up to simplify blood sugar and meal tracking for the elderly through easy photo logging and automated insights.', 'Technologies used: Figma, React Native, GitHub'],
+        id: 7,
+        bgImage: '/BiteByte.JPG',
+        link: 'https://github.com/klvuongg/BiteByte.git',
     },
 ]
 

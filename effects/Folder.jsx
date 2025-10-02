@@ -33,7 +33,7 @@ const Folder = ({
   onPaperLeave = () => {},
   hoveredIndex = null,
 }) => {
-  const maxItems = 4; // Changed to 4 to support 4 cards
+  const maxItems = 4;
   const papers = items.slice(0, maxItems);
   while (papers.length < maxItems) {
     papers.push(null);

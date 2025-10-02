@@ -38,7 +38,6 @@ const Tools = () => {
       </p>
 
       <div className="flex flex-col items-center">
-        {/* Cards shown when folder is open - positioned above folder */}
         {open && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 w-full max-w-8xl px-6 z-10 relative">
             {toolsData.map(({ icon, title, description }, i) => (
