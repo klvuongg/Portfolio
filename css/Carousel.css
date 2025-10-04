@@ -216,7 +216,7 @@
 /* .carousel-container button:disabled { ... } */
 
 /* Responsive Design */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .projects-carousel-wrapper {
     padding: 10px;
   }
@@ -240,7 +240,7 @@
   .carousel-container .absolute.right-3 {
     right: 8px;
   }
-}
+} */
 
 /* Enhanced project card animations within carousel */
 .carousel-item .aspect-square {

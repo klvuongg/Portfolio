@@ -1,5 +1,4 @@
 import { assets, projectData } from '@/assets/assets'
-import Image from 'next/image'
 import React from 'react'
 import ProjectsCarousel from '@/effects/Carousel'
 

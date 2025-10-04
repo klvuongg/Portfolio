@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useTransform } from "motion/react";
+import { motion, useMotionValue, useTransform, AnimatePresence } from "motion/react";
 import { assets, projectData } from "@/assets/assets";
 import Image from 'next/image';
 import "@/css/Carousel.css";
@@ -10,8 +10,27 @@ const GAP = 20;
 const SPRING_OPTIONS = { type: "spring", stiffness: 300, damping: 30 };
 const INSTANT_TRANSITION = { type: "tween", duration: 0 };
 
-// Project Card Component with original styling
-const ProjectCard = ({ project, style }) => {
+// Project Card Component with video demo overlay
+const ProjectCard = ({ project, style, isActive, onShowDemo }) => {
+  const hoverTimerRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    if (isActive && project.video) {
+      // Start a 3-second timer before showing demo
+      hoverTimerRef.current = setTimeout(() => {
+        onShowDemo();
+      }, 3000);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    // Clear timer if mouse leaves before 3 seconds
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+  };
+
   return (
     <motion.div
       className='bg-no-repeat bg-cover bg-center rounded-lg 
@@ -23,7 +42,10 @@ const ProjectCard = ({ project, style }) => {
         aspectRatio: 'auto',
         ...style
       }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
+      {/* Original project info card */}
       <div className='bg-white w-10/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2
       py-3 px-5 flex items-center justify-between duration-500 group-hover:bottom-7'>
         <div>
@@ -60,7 +82,6 @@ const ProjectCard = ({ project, style }) => {
             </div>
           )}
         </div>
-        
       </div>
     </motion.div>
   );
@@ -84,19 +105,50 @@ export default function ProjectsCarousel({
   const itemHeight = baseHeight - containerPadding * 2 - 60;
   const trackItemOffset = itemWidth + GAP;
 
-  // Create extended items array for seamless loop (5 copies for better buffer)
   const extendedItems = loop ? [...items, ...items, ...items, ...items, ...items] : items;
-  const startIndex = loop ? items.length * 2 : 0; // Start from middle section for loop
+  const startIndex = loop ? items.length * 2 : 0;
   
   const [currentIndex, setCurrentIndex] = useState(startIndex);
-  const [displayIndex, setDisplayIndex] = useState(0); // For indicators
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [showDemo, setShowDemo] = useState(false);
+  const [demoProject, setDemoProject] = useState(null);
   const x = useMotionValue(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const containerRef = useRef(null);
+  const videoRef = useRef(null);
 
-  // Update display index based on current index
+  // Handle showing demo
+const handleShowDemo = (project) => {
+  setDemoProject(project);
+  setShowDemo(true);
+};
+
+// Handle hiding demo
+const handleHideDemo = () => {
+  setShowDemo(false);
+  if (videoRef.current) {
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+  }
+};
+
+// Play video when demo is shown
+useEffect(() => {
+  if (showDemo && videoRef.current && demoProject?.video) {
+    videoRef.current.play().catch(err => console.log("Video play failed:", err));
+  }
+}, [showDemo, demoProject]);
+
+  useEffect(() => {
+    if (loop) {
+      setDisplayIndex(currentIndex % items.length);
+    } else {
+      setDisplayIndex(currentIndex);
+    }
+  }, [currentIndex, items.length, loop]);
+
   useEffect(() => {
     if (loop) {
       setDisplayIndex(currentIndex % items.length);
@@ -136,20 +188,18 @@ export default function ProjectsCarousel({
 
   const handleAnimationComplete = () => {
     if (loop && !isTransitioning) {
-      // Check if we need to reset position for seamless loop
       const shouldResetToMiddle = 
         currentIndex >= extendedItems.length - items.length * 2 || 
         currentIndex < items.length;
       
       if (shouldResetToMiddle) {
-        // Calculate equivalent position in middle section
         const normalizedIndex = currentIndex % items.length;
         const newMiddleIndex = items.length * 2 + normalizedIndex;
         
         setIsTransitioning(true);
         setTimeout(() => {
           setCurrentIndex(newMiddleIndex);
-          setTimeout(() => setIsTransitioning(false), 16); // One frame delay
+          setTimeout(() => setIsTransitioning(false), 16);
         }, 0);
       }
     }
@@ -164,7 +214,6 @@ export default function ProjectsCarousel({
     const velocity = info.velocity.x;
     
     if (offset < -DRAG_BUFFER || velocity < -VELOCITY_THRESHOLD) {
-      // Moving to next item
       setCurrentIndex((prev) => {
         if (loop) {
           return prev + 1;
@@ -173,7 +222,6 @@ export default function ProjectsCarousel({
         }
       });
     } else if (offset > DRAG_BUFFER || velocity > VELOCITY_THRESHOLD) {
-      // Moving to previous item
       setCurrentIndex((prev) => {
         if (loop) {
           return prev - 1;
@@ -200,13 +248,11 @@ export default function ProjectsCarousel({
     if (isTransitioning) return;
     
     if (loop) {
-      // Calculate the closest instance of the target index
       const currentDisplayIndex = currentIndex % items.length;
       let targetIndex;
       
-      if (index === currentDisplayIndex) return; // Already at this item
+      if (index === currentDisplayIndex) return;
       
-      // Find the shortest path to the target
       const forwardDistance = (index - currentDisplayIndex + items.length) % items.length;
       const backwardDistance = (currentDisplayIndex - index + items.length) % items.length;
       
@@ -264,8 +310,8 @@ export default function ProjectsCarousel({
               -(index - 1) * trackItemOffset,
             ];
             const outputRange = [15, 0, -15];
-            // eslint-disable-next-line react-hooks/rules-of-hooks
             const rotateY = useTransform(x, range, outputRange, { clamp: false });
+            const isActiveCard = index === currentIndex;
             
             return (
               <motion.div
@@ -284,7 +330,11 @@ export default function ProjectsCarousel({
                 }}
                 transition={effectiveTransition}
               >
-                <ProjectCard project={project} />
+                <ProjectCard 
+                  project={project} 
+                  isActive={isActiveCard} 
+                  onShowDemo={() => handleShowDemo(project)}
+                />
               </motion.div>
             );
           })}
@@ -333,46 +383,81 @@ export default function ProjectsCarousel({
           </div>
         </div>
       </div>
+
+      {/* Video Demo Overlay - Full Section Overlay with Backdrop */}
+      <AnimatePresence>
+        {showDemo && demoProject?.video && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            style={{ 
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backdropFilter: 'blur(4px)'
+            }}
+            onClick={(e) => {
+              // Only close if clicking directly on the backdrop, not the modal
+              if (e.target === e.currentTarget) {
+                handleHideDemo();
+              }
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative bg-white rounded-2xl shadow-2xl max-w-6xl w-[100%] max-h-[100vh] flex flex-col overflow-hidden"
+            >
+              {/* Close button */}
+              <button
+                onClick={handleHideDemo}
+                className="absolute top-4 right-4 z-10 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition"
+              >
+                <Image src={assets.close_black} alt='close' className='w-4 cursor-pointer' />
+              </button>
+
+              {/* Project title */}
+              <div className="px-6 pt-6 pb-3 border-b border-gray-200">
+                <h3 className="text-2xl font-semibold text-gray-800">{demoProject.title}</h3>
+              </div>
+              
+              {/* Video container - takes most of the space */}
+              <div className="p-6 flex-1 flex items-center justify-center overflow-hidden">
+                <video
+                  ref={videoRef}
+                  className="rounded-lg w-full h-full object-contain bg-black"
+                  loop
+                  muted
+                  playsInline
+                >
+                  <source src={demoProject.video} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+
+              {/* Demo description */}
+              {demoProject.demoDescription && (
+                <div className="px-6 pb-6 flex-shrink-0">
+                  <div className="rounded-lg p-5 border border-black-200">
+                    {Array.isArray(demoProject.demoDescription) ? (
+                      demoProject.demoDescription.map((line, i) => (
+                        <p key={i} className="text-lg font-Ovo mb-3 leading-relaxed last:mb-0">
+                          {line}
+                        </p>
+                      ))
+                    ) : (
+                      <p className="text-lg font-Ovo leading-relaxed">{demoProject.demoDescription}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-
-// Updated Projects component using the carousel
-export const ProjectsWithCarousel = () => {
-  return (
-    <div id='projects' className='w-full px-[12%] py-10 scroll-mt-32'> {/* Increased scroll-mt from 24 to 32 */}
-      <h4 className='text-center mb-2 text-lg font-Ovo'>
-        My small archive of projects
-      </h4>
-      <h2 className='text-center text-5xl font-Ovo'>
-        My Projects
-      </h2>
-      <p className='text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo'>
-        These are some of the projects I have worked on, showcasing my skills in full-stack development 
-        and my passion for creating practical applications.
-      </p>
-      
-      {/* Carousel Implementation */}
-      <div className="my-6">
-        <ProjectsCarousel 
-          items={projectData}
-          baseWidth={500}
-          baseHeight={500}
-          autoplay={true}
-          autoplayDelay={4000}
-          pauseOnHover={true}
-          loop={true}
-          enableDrag={true}
-          containerBackgroundImage={assets.header_bg_color}
-          activeIndicatorImage={assets.sun_icon}
-          inactiveIndicatorImage={assets.moon_icon}
-        />
-      </div>
-
-      <a href="" className='w-max flex items-center justify-center gap-2 text-gray-700 border-[0.5px] border-gray-700 rounded-full
-      py-3 px-10 mx-auto my-20 hover:bg-lightHover duration-500'>
-        Show more <Image src={assets.right_arrow_bold} alt='Right arrow' className='w-4'/>
-      </a>
-    </div>
-  );
-};
