@@ -44,23 +44,9 @@ const InstructionOverlay = ({ isMobile }) => {
                 duration: 1.5,
                 ease: "easeInOut"
               }}
-              className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center"
+              className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center"
             >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="40" 
-                height="40" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                className="text-gray-800"
-              >
-                <path d="M12 2v4M6 6l2 2M2 12h4M6 18l2-2M12 22v-4M18 18l-2-2M22 12h-4M18 6l-2 2"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
+              <Image src={assets.click_cursor} alt="click cursor" className="w-50 h-25"/>
             </motion.div>
           ) : (
             // Cursor hover animation for desktop
@@ -78,16 +64,7 @@ const InstructionOverlay = ({ isMobile }) => {
                 }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="48" 
-                  height="48" 
-                  viewBox="0 0 24 24" 
-                  fill="white"
-                  className="drop-shadow-lg"
-                >
-                  <path d="M7.4 2.5l10.2 6.9c.4.3.4.8 0 1.1l-3.2 2.2 3.9 5.5c.3.4.2 1-.2 1.3l-1.5 1c-.4.3-1 .2-1.3-.2l-3.9-5.5-2.3 1.6v4.1c0 .5-.4.9-.9.9h-1.7c-.5 0-.9-.4-.9-.9V3.4c0-.7.8-1.1 1.3-.7l.5.8z"/>
-                </svg>
+                <Image src={assets.hover_cursor} alt="hover cursor" className="w-24 h-20"/>
               </motion.div>
             </motion.div>
           )}
@@ -259,7 +236,7 @@ const ProjectCard = ({ project, style, isActive, onShowDemo, isMobile, isDraggin
     >
       {/* Project info card */}
       <div className='bg-white w-10/12 rounded-md absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2
-        py-3 px-3 sm:py-3 sm:px-5 flex items-center justify-between duration-500 group-hover:bottom-5 sm:group-hover:bottom-7
+        py-4 px-3 sm:py-3 sm:px-5 flex items-center justify-between duration-500 group-hover:bottom-5 sm:group-hover:bottom-7
         border border-gray-400 shadow-md'>
         <div className="flex-1 min-w-0 mr-2">
           <h2 className='font-semibold text-sm sm:text-base truncate'>{project.title}</h2>
@@ -268,19 +245,19 @@ const ProjectCard = ({ project, style, isActive, onShowDemo, isMobile, isDraggin
                       if (line.startsWith("Technologies used:")) {
                         const [label, techList] = line.split(": ");
                         return (
-                          <p key={i} className='text-xs sm:text-sm text-gray-700 mb-1 sm:mb-1'>
+                          <p key={i} className='text-sm sm:text-sm text-gray-700 mb-1 sm:mb-1'>
                             {label}: <span className='font-semibold'>{techList}</span>
                           </p>
                         );
                     } else {
                       return (
-                        <p key={i} className='text-xs sm:text-sm text-gray-700 mb-1 sm:mb-1'>
+                        <p key={i} className='text-sm sm:text-sm text-gray-700 mb-1 sm:mb-1'>
                           {line}
                         </p>
                       );
                     }
                   })
-                : <p className='text-xs sm:text-sm truncate'>{project.description}</p>
+                : <p className='text-sm sm:text-sm truncate'>{project.description}</p>
               }
         </div>
 
@@ -675,7 +652,7 @@ export default function ProjectsCarousel({
                     isDragging={isDragging}
                   />
                   
-                  {/* ✅ ADDED: Show instruction overlay only on the first/center card */}
+                  {/* Show instruction overlay only on the first/center card */}
                   {isActiveCard && showInstructionOverlay && (
                     <InstructionOverlay isMobile={isMobile} />
                   )}

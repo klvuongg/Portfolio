@@ -42,14 +42,31 @@
   filter: url(#pointLight);
 }
 
-.sticker-container:hover .sticker-main,
-.sticker-container.touch-active .sticker-main {
+/* Desktop hover state */
+.sticker-container:hover .sticker-main {
   clip-path: polygon(var(--sticker-start) var(--sticker-peelback-hover),
       var(--sticker-end) var(--sticker-peelback-hover),
       var(--sticker-end) var(--sticker-end),
       var(--sticker-start) var(--sticker-end));
 }
 
+/* Mobile half-peeled state (first tap) */
+.sticker-container.mobile-half-peeled .sticker-main {
+  clip-path: polygon(var(--sticker-start) var(--sticker-peelback-hover),
+      var(--sticker-end) var(--sticker-peelback-hover),
+      var(--sticker-end) var(--sticker-end),
+      var(--sticker-start) var(--sticker-end));
+}
+
+/* Mobile full-peeled state (second tap) */
+.sticker-container.mobile-full-peeled .sticker-main {
+  clip-path: polygon(var(--sticker-start) var(--sticker-peelback-active),
+      var(--sticker-end) var(--sticker-peelback-active),
+      var(--sticker-end) var(--sticker-end),
+      var(--sticker-start) var(--sticker-end));
+}
+
+/* Desktop active state (mouse pressed) */
 .sticker-container:active .sticker-main {
   clip-path: polygon(var(--sticker-start) var(--sticker-peelback-active),
       var(--sticker-end) var(--sticker-peelback-active),
@@ -79,8 +96,8 @@
   transform: rotate(calc(-1 * var(--peel-direction)));
 }
 
-.sticker-container:hover .flap,
-.sticker-container.touch-active .flap {
+/* Desktop hover state */
+.sticker-container:hover .flap {
   clip-path: polygon(var(--sticker-start) var(--sticker-start),
       var(--sticker-end) var(--sticker-start),
       var(--sticker-end) var(--sticker-peelback-hover),
@@ -88,6 +105,25 @@
   top: calc(-100% + 2 * var(--sticker-peelback-hover) - 1px);
 }
 
+/* Mobile half-peeled state (first tap) */
+.sticker-container.mobile-half-peeled .flap {
+  clip-path: polygon(var(--sticker-start) var(--sticker-start),
+      var(--sticker-end) var(--sticker-start),
+      var(--sticker-end) var(--sticker-peelback-hover),
+      var(--sticker-start) var(--sticker-peelback-hover));
+  top: calc(-100% + 2 * var(--sticker-peelback-hover) - 1px);
+}
+
+/* Mobile full-peeled state (second tap) */
+.sticker-container.mobile-full-peeled .flap {
+  clip-path: polygon(var(--sticker-start) var(--sticker-start),
+      var(--sticker-end) var(--sticker-start),
+      var(--sticker-end) var(--sticker-peelback-active),
+      var(--sticker-start) var(--sticker-peelback-active));
+  top: calc(-100% + 2 * var(--sticker-peelback-active) - 1px);
+}
+
+/* Desktop active state (mouse pressed) */
 .sticker-container:active .flap {
   clip-path: polygon(var(--sticker-start) var(--sticker-start),
       var(--sticker-end) var(--sticker-start),

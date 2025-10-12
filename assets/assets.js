@@ -32,6 +32,13 @@ import active_indicator from './active_indicator.png';
 import inactive_indicator from './inactive_indicator.png';
 import github from './github.png';
 import pythonAnywhere from './pythonAnywhere.png';
+import hover_cursor from './hover_cursor.png';
+import click_cursor from './click_cursor.png';
+import peel_dark from './peel_me_dark.gif';
+import name_dark from './name_dark.png';
+import github_dark from './github_dark.jpg';
+import bunny_sleeping from './bunny_sleeping.png';
+import bunny_awake from './bunny_awake.png';
 
 export const assets = {
     user_image,
@@ -68,6 +75,13 @@ export const assets = {
     inactive_indicator,
     github,
     pythonAnywhere,
+    hover_cursor,
+    click_cursor,
+    peel_dark,
+    name_dark,
+    github_dark,
+    bunny_sleeping,
+    bunny_awake,
 };
 
 export const projectData = [

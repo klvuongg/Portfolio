@@ -74,36 +74,6 @@
   transform: translateZ(10px);
 }
 
-/* Navigation Buttons - Remove styles since arrows are removed */
-/* .carousel-container button:disabled { ... } */
-
-/* Responsive Design */
-/* @media (max-width: 768px) {
-  .projects-carousel-wrapper {
-    padding: 10px;
-  }
-  
-  .carousel-container {
-    width: 90vw !important;
-    height: 90vw !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-container {
-    width: 95vw !important;
-    height: 95vw !important;
-  }
-  
-  .carousel-container .absolute.left-3 {
-    left: 8px;
-  }
-  
-  .carousel-container .absolute.right-3 {
-    right: 8px;
-  }
-} */
-
 /* Enhanced project card animations within carousel */
 .carousel-item .aspect-square {
   transition: all 0.3s ease;
@@ -123,3 +93,4 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+

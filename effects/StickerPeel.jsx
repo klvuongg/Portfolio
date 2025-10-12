@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
 import { gsap } from 'gsap';
 import { Draggable } from 'gsap/Draggable';
 import '@/css/StickerPeel.css';
@@ -24,6 +24,9 @@ const StickerPeel = ({
   const pointLightRef = useRef(null);
   const pointLightFlippedRef = useRef(null);
   const draggableInstanceRef = useRef(null);
+  
+  // Track mobile peel state with 3 states: 'none', 'half', 'full'
+  const [mobilePeelState, setMobilePeelState] = useState('none');
 
   const defaultPadding = 10;
 
@@ -128,28 +131,56 @@ const StickerPeel = ({
     }
   }, [peelDirection]);
 
+  // Handle mobile touch interactions with 3-state toggle
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const handleTouchStart = () => {
-      container.classList.add('touch-active');
+    // Handle tap to cycle through peel states
+    const handleClick = (e) => {
+      // Only handle this for touch devices
+      if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+        e.stopPropagation(); // Prevent event from bubbling to document
+        
+        setMobilePeelState(prev => {
+          if (prev === 'none') return 'half';
+          if (prev === 'half') return 'full';
+          return 'full'; // Stay at full, will be reset by outside click
+        });
+      }
     };
 
-    const handleTouchEnd = () => {
-      container.classList.remove('touch-active');
-    };
-
-    container.addEventListener('touchstart', handleTouchStart);
-    container.addEventListener('touchend', handleTouchEnd);
-    container.addEventListener('touchcancel', handleTouchEnd);
+    container.addEventListener('click', handleClick);
 
     return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchend', handleTouchEnd);
-      container.removeEventListener('touchcancel', handleTouchEnd);
+      container.removeEventListener('click', handleClick);
     };
   }, []);
+
+  // Handle clicks outside sticker to reset peel state
+  useEffect(() => {
+    // Only run on touch devices
+    if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+      return;
+    }
+
+    const handleOutsideClick = (e) => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      // Check if click is outside the sticker container
+      if (!container.contains(e.target) && mobilePeelState !== 'none') {
+        setMobilePeelState('none');
+      }
+    };
+
+    // Add listener to document
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [mobilePeelState]);
 
   const cssVars = useMemo(
     () => ({
@@ -178,7 +209,11 @@ const StickerPeel = ({
   );
 
   return (
-    <div className={`draggable ${className}`} ref={dragTargetRef} style={cssVars}>
+    <div 
+      className={`draggable ${className}`} 
+      ref={dragTargetRef} 
+      style={cssVars}
+    >
       <svg width="0" height="0">
         <defs>
           <filter id="pointLight">
@@ -229,8 +264,9 @@ const StickerPeel = ({
         </defs>
       </svg>
 
+      {/* Add state-based classes for mobile peel states */}
       <div
-        className="sticker-container"
+        className={`sticker-container ${mobilePeelState === 'half' ? 'mobile-half-peeled' : ''} ${mobilePeelState === 'full' ? 'mobile-full-peeled' : ''}`}
         ref={containerRef}
       >
         <div className="sticker-main">
