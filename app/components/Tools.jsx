@@ -75,7 +75,8 @@ const Tools = () => {
         )}
 
         {/* Folder */}
-        <div className="py-60 relative z-0">
+        <div className={`relative z-0 transition-all duration-500 ${
+            open ? 'pt-60 pb-0' : 'py-60'} `}>
           <Folder 
             size={4} 
             items={[]} 

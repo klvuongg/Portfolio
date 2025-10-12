@@ -4,38 +4,230 @@ import { assets, projectData } from "@/assets/assets";
 import Image from 'next/image';
 import "@/css/Carousel.css";
 
-const DRAG_BUFFER = 50;
+const DRAG_BUFFER = 0; 
 const VELOCITY_THRESHOLD = 500;
 const GAP_PERCENTAGE = 2;
 const SPRING_OPTIONS = { type: "spring", stiffness: 300, damping: 30 };
 const INSTANT_TRANSITION = { type: "tween", duration: 0 };
+const OVERLAY_DURATION = 5000; 
+
+// Instruction Overlay Component
+const InstructionOverlay = ({ isMobile }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="absolute inset-0 z-10 flex items-center justify-center"
+      style={{
+        background: 'rgba(0, 0, 0, 0.7)',
+        backdropFilter: 'blur(4px)',
+        borderRadius: '12px'
+      }}
+    >
+      <div className="text-center text-white px-6">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="mb-4"
+        >
+          {isMobile ? (
+            // Tap/Click animation for mobile
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+              }}
+              transition={{ 
+                repeat: Infinity, 
+                duration: 1.5,
+                ease: "easeInOut"
+              }}
+              className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center"
+            >
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="40" 
+                height="40" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className="text-gray-800"
+              >
+                <path d="M12 2v4M6 6l2 2M2 12h4M6 18l2-2M12 22v-4M18 18l-2-2M22 12h-4M18 6l-2 2"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </motion.div>
+          ) : (
+            // Cursor hover animation for desktop
+            <motion.div
+              className="relative w-20 h-20 mx-auto mb-4"
+            >
+              <motion.div
+                animate={{ 
+                  y: [0, -10, 0],
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 2,
+                  ease: "easeInOut"
+                }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="48" 
+                  height="48" 
+                  viewBox="0 0 24 24" 
+                  fill="white"
+                  className="drop-shadow-lg"
+                >
+                  <path d="M7.4 2.5l10.2 6.9c.4.3.4.8 0 1.1l-3.2 2.2 3.9 5.5c.3.4.2 1-.2 1.3l-1.5 1c-.4.3-1 .2-1.3-.2l-3.9-5.5-2.3 1.6v4.1c0 .5-.4.9-.9.9h-1.7c-.5 0-.9-.4-.9-.9V3.4c0-.7.8-1.1 1.3-.7l.5.8z"/>
+                </svg>
+              </motion.div>
+            </motion.div>
+          )}
+        </motion.div>
+        
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-lg sm:text-xl font-semibold"
+        >
+          {isMobile ? "Tap to view demo" : "Hover to view demo"}
+        </motion.p>
+        
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="text-sm sm:text-base mt-2 opacity-80"
+        >
+          {isMobile ? "Click on the active card" : "Hold your mouse over the card"}
+        </motion.p>
+      </div>
+    </motion.div>
+  );
+};
 
 // Project Card Component with video demo overlay
 const ProjectCard = ({ project, style, isActive, onShowDemo, isMobile, isDragging }) => {
   const hoverTimerRef = useRef(null);
+  const draggedRef = useRef(false); // Track if user dragged
+  const mouseDownRef = useRef(false); // Track if mouse button is held down
+  // Track if user was hovering when they pressed mouse down
+  const wasHoveringOnMouseDownRef = useRef(false);
 
   const handleMouseEnter = () => {
-    if (isDragging) return; // 🆕 Prevent hover trigger while dragging
-    if (!isMobile && isActive && project.video) { // 🆕 Only hover trigger for desktop
+    // Reset dragged flag on new hover
+    draggedRef.current = false;
+    
+    // Don't start timer if mobile or not active or no video
+    if (isMobile || !isActive || !project.video) return;
+    
+    // Clear any existing timer
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+    }
+    
+    // Only start timer if mouse is not currently held down
+    if (!mouseDownRef.current) {
+      // Start timer - will fire after 3 seconds of hovering
       hoverTimerRef.current = setTimeout(() => {
-        onShowDemo();
+        // Only show if not dragging AND user didn't drag during this hover AND mouse button is not held down
+        if (!isDragging && !draggedRef.current && !mouseDownRef.current) {
+          onShowDemo();
+        }
       }, 3000);
     }
   };
 
   const handleMouseLeave = () => {
+    // Clear timer when mouse leaves
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+    // Reset dragged flag
+    draggedRef.current = false;
+    // Reset mouse down flag
+    mouseDownRef.current = false;
+    wasHoveringOnMouseDownRef.current = false;
+  };
+
+  const handleMouseDown = () => {
+    wasHoveringOnMouseDownRef.current = true;
+    
+    // Mark that mouse button is being held
+    mouseDownRef.current = true;
+    // Cancel the hover timer immediately when mouse is pressed
     if (hoverTimerRef.current) {
       clearTimeout(hoverTimerRef.current);
       hoverTimerRef.current = null;
     }
   };
 
-  const handleClick = () => {
+  const handleMouseUp = () => {
+    // Reset mouse down flag when button is released
+    mouseDownRef.current = false;
+    
+    // If user was hovering when they pressed down and still hovering, restart timer
+    if (wasHoveringOnMouseDownRef.current && !isMobile && isActive && project.video) {
+      // Clear any existing timer
+      if (hoverTimerRef.current) {
+        clearTimeout(hoverTimerRef.current);
+      }
+      
+      // Restart the hover timer after mouse is released
+      hoverTimerRef.current = setTimeout(() => {
+        if (!isDragging && !draggedRef.current && !mouseDownRef.current) {
+          onShowDemo();
+        }
+      }, 3000);
+    }
+    
+    // Reset the flag
+    wasHoveringOnMouseDownRef.current = false;
+  };
+
+  const handleMouseMove = () => {
+    // If isDragging is true, mark that user dragged
+    if (isDragging) {
+      draggedRef.current = true;
+      // Cancel the hover timer
+      if (hoverTimerRef.current) {
+        clearTimeout(hoverTimerRef.current);
+        hoverTimerRef.current = null;
+      }
+    }
+  };
+
+  const handleClick = (e) => {
+    // Prevent demo from showing if user just dragged
+    if (draggedRef.current) {
+      draggedRef.current = false;
+      return;
+    }
+    
     // For mobile only, trigger demo on click
     if (isMobile && isActive && project.video) {
       onShowDemo();
     }
   };
+
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current) {
+        clearTimeout(hoverTimerRef.current);
+      }
+    };
+  }, []);
 
   const getBackgroundPosition = () => {
     if (!isMobile) return 'center';
@@ -60,11 +252,14 @@ const ProjectCard = ({ project, style, isActive, onShowDemo, isMobile, isDraggin
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
       onClick={handleClick}
     >
       {/* Project info card */}
       <div className='bg-white w-10/12 rounded-md absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2
-        py-2 px-3 sm:py-3 sm:px-5 flex items-center justify-between duration-500 group-hover:bottom-5 sm:group-hover:bottom-7
+        py-3 px-3 sm:py-3 sm:px-5 flex items-center justify-between duration-500 group-hover:bottom-5 sm:group-hover:bottom-7
         border border-gray-400 shadow-md'>
         <div className="flex-1 min-w-0 mr-2">
           <h2 className='font-semibold text-sm sm:text-base truncate'>{project.title}</h2>
@@ -73,13 +268,13 @@ const ProjectCard = ({ project, style, isActive, onShowDemo, isMobile, isDraggin
                       if (line.startsWith("Technologies used:")) {
                         const [label, techList] = line.split(": ");
                         return (
-                          <p key={i} className='text-xs sm:text-sm text-gray-700 mb-0.5 sm:mb-1'>
+                          <p key={i} className='text-xs sm:text-sm text-gray-700 mb-1 sm:mb-1'>
                             {label}: <span className='font-semibold'>{techList}</span>
                           </p>
                         );
                     } else {
                       return (
-                        <p key={i} className='text-xs sm:text-sm text-gray-700 mb-0.5 sm:mb-1'>
+                        <p key={i} className='text-xs sm:text-sm text-gray-700 mb-1 sm:mb-1'>
                           {line}
                         </p>
                       );
@@ -138,6 +333,12 @@ export default function ProjectsCarousel({
   const [demoProject, setDemoProject] = useState(null);
   const [containerWidth, setContainerWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [showInstructionOverlay, setShowInstructionOverlay] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [overlayShown, setOverlayShown] = useState(false);
+  const [pauseForOverlay, setPauseForOverlay] = useState(false);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
   const x = useMotionValue(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -154,6 +355,45 @@ export default function ProjectsCarousel({
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Intersection Observer to detect when carousel is in view
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !overlayShown) {
+          setIsInView(true);
+          setShowInstructionOverlay(true);
+          setPauseForOverlay(true);
+          setOverlayShown(true); // Mark that overlay has been shown
+        }
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of carousel is visible
+      }
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, [overlayShown]);
+
+  // Hide instruction overlay after 5 seconds when in view
+  useEffect(() => {
+    if (!isInView || !showInstructionOverlay) return;
+
+    const timer = setTimeout(() => {
+      setShowInstructionOverlay(false);
+      setPauseForOverlay(false); // Resume autoplay after overlay
+    }, OVERLAY_DURATION);
+
+    return () => clearTimeout(timer);
+  }, [isInView, showInstructionOverlay]);
 
   // Measure container width for responsive calculations
   useEffect(() => {
@@ -223,7 +463,7 @@ export default function ProjectsCarousel({
   }, [pauseOnHover]);
 
   useEffect(() => {
-    if (autoplay && (!pauseOnHover || !isHovered) && !isTransitioning) {
+    if (autoplay && (!pauseOnHover || !isHovered) && !isTransitioning && !pauseForOverlay && !isUserInteracting) {
       const timer = setInterval(() => {
         setCurrentIndex((prev) => {
           if (loop) {
@@ -235,7 +475,7 @@ export default function ProjectsCarousel({
       }, autoplayDelay);
       return () => clearInterval(timer);
     }
-  }, [autoplay, autoplayDelay, isHovered, loop, items.length, pauseOnHover, isTransitioning]);
+  }, [autoplay, autoplayDelay, isHovered, loop, items.length, pauseOnHover, isTransitioning, pauseForOverlay, isUserInteracting]);
 
   const handleAnimationComplete = () => {
     if (loop && !isTransitioning) {
@@ -258,28 +498,46 @@ export default function ProjectsCarousel({
 
   const effectiveTransition = isTransitioning ? INSTANT_TRANSITION : SPRING_OPTIONS;
 
+  // Track when user starts interacting
+  const handleDragStart = () => {
+    setIsDragging(true);
+    setIsUserInteracting(true); // Stop autoplay when user starts dragging
+  };
+
   const handleDragEnd = (_, info) => {
-    if (!enableDrag || isTransitioning) return;
+    const wasDragging = isDragging;
+    setIsDragging(false);
+    setIsUserInteracting(false); // Resume autoplay when drag ends
+    
+    if (!enableDrag || isTransitioning) {
+      return;
+    }
     
     const offset = info.offset.x;
     const velocity = info.velocity.x;
+
+    // Only change slides if there was significant drag movement
+    const hasMoved = Math.abs(offset) > DRAG_BUFFER || Math.abs(velocity) > VELOCITY_THRESHOLD;
     
-    if (offset < -DRAG_BUFFER || velocity < -VELOCITY_THRESHOLD) {
-      setCurrentIndex((prev) => {
-        if (loop) {
-          return prev + 1;
-        } else {
-          return Math.min(prev + 1, items.length - 1);
-        }
-      });
-    } else if (offset > DRAG_BUFFER || velocity > VELOCITY_THRESHOLD) {
-      setCurrentIndex((prev) => {
-        if (loop) {
-          return prev - 1;
-        } else {
-          return Math.max(prev - 1, 0);
-        }
-      });
+    // Only navigate if actually moved
+    if (hasMoved) {
+      if (offset < -DRAG_BUFFER || velocity < -VELOCITY_THRESHOLD) {
+        setCurrentIndex((prev) => {
+          if (loop) {
+            return prev + 1;
+          } else {
+            return Math.min(prev + 1, items.length - 1);
+          }
+        });
+      } else if (offset > DRAG_BUFFER || velocity > VELOCITY_THRESHOLD) {
+        setCurrentIndex((prev) => {
+          if (loop) {
+            return prev - 1;
+          } else {
+            return Math.max(prev - 1, 0);
+          }
+        });
+      }
     }
   };
 
@@ -292,6 +550,10 @@ export default function ProjectsCarousel({
               left: -trackItemOffset * (items.length - 1),
               right: 0,
             },
+        dragElastic: 0,
+        dragMomentum: false,
+        dragTransition: { bounceStiffness: 1000, bounceDamping: 100 }, 
+        onDragStart: handleDragStart,
       }
     : {};
 
@@ -361,6 +623,17 @@ export default function ProjectsCarousel({
               position: 'relative',
             }}
             onDragEnd={handleDragEnd}
+            onDrag={(event, info) => {
+              const currentX = x.get();
+              const targetX = -(currentIndex * trackItemOffset);
+
+              const maxDragDistance = 800; 
+              const dragOffset = currentX - targetX;
+              
+              if (Math.abs(dragOffset) > maxDragDistance) {
+                x.set(targetX + Math.sign(dragOffset) * maxDragDistance);
+              }
+            }}
             animate={{ x: containerWidth > 0 ? -(currentIndex * trackItemOffset) : 0 }}
             transition={effectiveTransition}
             onAnimationComplete={handleAnimationComplete}
@@ -389,6 +662,8 @@ export default function ProjectsCarousel({
                     cursor: enableDrag ? 'grab' : 'pointer',
                     border: 'none',
                     background: 'transparent',
+                    // ✅ ADDED: Add position relative for overlay
+                    position: 'relative',
                   }}
                   transition={effectiveTransition}
                 >
@@ -397,7 +672,13 @@ export default function ProjectsCarousel({
                     isActive={isActiveCard} 
                     onShowDemo={() => handleShowDemo(project)}
                     isMobile={isMobile}
+                    isDragging={isDragging}
                   />
+                  
+                  {/* ✅ ADDED: Show instruction overlay only on the first/center card */}
+                  {isActiveCard && showInstructionOverlay && (
+                    <InstructionOverlay isMobile={isMobile} />
+                  )}
                 </motion.div>
               );
             })}
