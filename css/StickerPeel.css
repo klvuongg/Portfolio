@@ -180,3 +180,19 @@
   pointer-events: none;
   z-index: 10;
 }
+/* Hide arrow on desktop hover */
+.group:hover .peel-arrow {
+  opacity: 0;
+}
+
+/* Hide arrow when mobile sticker is peeled (half or full) - Updated */
+.sticker-wrapper.peeled-half ~ div .peel-arrow,
+.sticker-wrapper.peeled-full ~ div .peel-arrow {
+  opacity: 0 !important;
+}
+
+/* Alternative approach - target parent directly */
+.sticker-parent:has(.peeled-half) .peel-arrow,
+.sticker-parent:has(.peeled-full) .peel-arrow {
+  opacity: 0 !important;
+}

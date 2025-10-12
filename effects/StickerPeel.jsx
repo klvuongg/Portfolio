@@ -132,30 +132,38 @@ const StickerPeel = ({
   }, [peelDirection]);
 
   // Handle mobile touch interactions with 3-state toggle
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+useEffect(() => {
+  const container = containerRef.current;
+  const draggable = dragTargetRef.current;
+  if (!container || !draggable) return;
 
-    // Handle tap to cycle through peel states
-    const handleClick = (e) => {
-      // Only handle this for touch devices
-      if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
-        e.stopPropagation(); // Prevent event from bubbling to document
+  // Handle tap to cycle through peel states
+  const handleClick = (e) => {
+    // Only handle this for touch devices
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+      e.stopPropagation(); // Prevent event from bubbling to document
+      
+      setMobilePeelState(prev => {
+        const newState = prev === 'none' ? 'half' : prev === 'half' ? 'full' : 'full';
         
-        setMobilePeelState(prev => {
-          if (prev === 'none') return 'half';
-          if (prev === 'half') return 'full';
-          return 'full'; // Stay at full, will be reset by outside click
-        });
-      }
-    };
+        // Update parent wrapper class
+        const wrapper = draggable.closest('.sticker-wrapper');
+        if (wrapper) {
+          wrapper.classList.remove('peeled-none', 'peeled-half', 'peeled-full');
+          wrapper.classList.add(`peeled-${newState}`);
+        }
+        
+        return newState;
+      });
+    }
+  };
 
-    container.addEventListener('click', handleClick);
+  container.addEventListener('click', handleClick);
 
-    return () => {
-      container.removeEventListener('click', handleClick);
-    };
-  }, []);
+  return () => {
+    container.removeEventListener('click', handleClick);
+  };
+}, []);
 
   // Handle clicks outside sticker to reset peel state
   useEffect(() => {
@@ -166,11 +174,19 @@ const StickerPeel = ({
 
     const handleOutsideClick = (e) => {
       const container = containerRef.current;
-      if (!container) return;
+      const draggable = dragTargetRef.current;
+      if (!container || !draggable) return;
 
       // Check if click is outside the sticker container
       if (!container.contains(e.target) && mobilePeelState !== 'none') {
         setMobilePeelState('none');
+        
+        // Update parent wrapper class
+        const wrapper = draggable.closest('.sticker-wrapper');
+        if (wrapper) {
+          wrapper.classList.remove('peeled-none', 'peeled-half', 'peeled-full');
+          wrapper.classList.add('peeled-none');
+        }
       }
     };
 

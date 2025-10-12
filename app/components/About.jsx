@@ -11,7 +11,7 @@ const About = () => {
 
       <div className='flex w-full flex-col lg:flex-row items-center gap-20 my-20'>
         
-        <div className='relative w-64 sm:w-80 rounded-3xl max-w-none group'>
+        <div className='relative w-64 sm:w-80 rounded-3xl max-w-none group sticker-parent'>
           <Image
             src={assets.user_image}
             alt='user'
@@ -19,7 +19,7 @@ const About = () => {
           />
 
           <div className='absolute top-0 left-0 w-full h-full pointer-events-none z-40'>
-            <div className='relative w-full h-full'>
+            <div className='relative w-full h-full sticker-wrapper'>
               <div
                 className='absolute pointer-events-auto'
                 style={{
@@ -28,7 +28,7 @@ const About = () => {
                   width: '140%',
                   height: '125%'
                 }}
-              >
+              >     
                 <StickerPeel
                   imageSrc={assets.sticker.src}
                   width={600}
@@ -45,7 +45,7 @@ const About = () => {
           </div>
 
           <div className='absolute top-0 left-0 w-full h-full pointer-events-none z-10'>
-            <div className='absolute w-[5%] h-[20%] group-hover:opacity-0 transition-opacity duration-300'>
+            <div className='absolute w-[5%] h-[20%] peel-arrow transition-opacity duration-300'>
               <div
                 className='absolute'
                 style={{
@@ -55,15 +55,15 @@ const About = () => {
                   width: 'clamp(40px, 30vw, 200px)'
                 }}
               >
-                <Image
-                  src={assets.peel}
-                  alt='peel arrow'
-                  className='w-full h-auto'
-                />
-              </div>
+              <Image
+                src={assets.peel}
+                alt='peel arrow'
+                className='w-full h-auto'
+              />
             </div>
           </div>
         </div>
+      </div>
 
         <div className='flex-1'>
           <p className='mb-10 max-w-6xl font-Ovo'>
