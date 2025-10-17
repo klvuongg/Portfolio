@@ -18,7 +18,7 @@ import close_white from './close-white.png';
 import right_arrow from './right-arrow.png';
 import right_arrow_bold from './right-arrow-bold.png';
 import right_arrow_bold_dark from './right-arrow-bold-dark.png';
-import ontario_public_service_leadership_logo from './ontario_public_service_leadership_logo.jpeg';
+import ontario_public_service_leadership_logo from './ontario_public_service_leadership_logo.png';
 import hello from './hello.gif';
 import wow from './wow.gif';
 import sticker from './sticker.png';
@@ -36,9 +36,20 @@ import hover_cursor from './hover_cursor.png';
 import click_cursor from './click_cursor.png';
 import peel_dark from './peel_me_dark.gif';
 import name_dark from './name_dark.png';
-import github_dark from './github_dark.jpg';
+import github_dark from './github_dark.png';
 import bunny_sleeping from './bunny_sleeping.png';
 import bunny_awake from './bunny_awake.png';
+import database_dark from './database_dark.png';
+import programming_languages_dark from './programming_language_dark.png';
+import operating_system_dark from './operating_system_dark.png';
+import tools_dark from './tools_dark.png';
+const AssemblyLine = './AssemblyLine.png';
+const BioDivers = './BioDivers.png';
+const BiteByte = './BiteByte.png';
+const LibApp = './LibApp.png';
+const Portfolio = './Portfolio.png';
+const RPGGame = './RPGGame.png';
+const WebBlog = './WebBlog.png';
 
 export const assets = {
     user_image,
@@ -80,8 +91,20 @@ export const assets = {
     peel_dark,
     name_dark,
     github_dark,
+    github,
     bunny_sleeping,
     bunny_awake,
+    database_dark,
+    programming_languages_dark,
+    operating_system_dark,
+    tools_dark,
+    AssemblyLine,
+    BioDivers,
+    BiteByte,
+    LibApp,
+    Portfolio,
+    RPGGame,
+    WebBlog,
 };
 
 export const projectData = [
@@ -89,7 +112,7 @@ export const projectData = [
         title: 'Biodiversity Solutions Website',
         description: ['An open-source website for biodiversity project management. Explore categorized projects now; sign in to contribute, update, and deploy new solutions.', 'Technologies used: Node.js, JavaScript, TailwindCSS, HTML, CSS, PostgreSQL, MongoDB, Vercel.'],
         id: 1,
-        bgImage: '/BioDivers.JPG',
+        bgImage: assets.BioDivers,
         link: 'https://github.com/klvuongg/Biodiversity-Solutions-App.git',
         deployLink: 'https://biodiversity-solutions-app.vercel.app/',
         video: '/BioDivers.mp4',
@@ -98,7 +121,7 @@ export const projectData = [
         title: 'Web Blog',
         id: 2,
         description: ['A full-stack web blog application where users can create, read, update, and delete blog posts.', 'Technologies used: Django, Python, CSS, Django Admin, PythonAnywhere.'],
-        bgImage: '/WebBlog.JPG',
+        bgImage: assets.WebBlog,
         link: 'https://github.com/klvuongg/Web-Blog.git',
         deployLink: 'https://klvuong.pythonanywhere.com/',
         video: '/WebBlog.mp4',
@@ -112,14 +135,14 @@ export const projectData = [
         title: 'Portfolio Website',
         description: ['My interactive digital portfolio. Explore my skills and work through engaging, hands-on demos and creatively designed, cute presentation.', 'Technologies used: React, Next.js, JavaScript, TailwindCSS, Vercel.'],
         id: 3,
-        bgImage: '/Portfolio.JPG',
+        bgImage: assets.Portfolio,
         link: 'https://github.com/klvuongg/Portfolio.git',
     },
     {
         title: 'RPG Game',
         description: ['A role-playing game with quests, monster fights, and rewards with an interactive UI screen.', 'Technologies used: C#, Object-Oriented Programming, Windows Presentation Foundation (WPF).'],
         id: 4,
-        bgImage: '/RPGGame.JPG',
+        bgImage: assets.RPGGame,
         link: 'https://github.com/klvuongg/RPG-Game.git',
         video: '/RPGGame.mp4',
     },
@@ -127,7 +150,7 @@ export const projectData = [
         title: 'Assembly Line System',
         description: ['A sequential assembly line system that tracks furniture inventory, generates unique serial numbers, and processes customer orders based on a defined production flow.', 'Technologies used: C++, Object-Oriented Programming, File Handling.'],
         id: 5,
-        bgImage: '/AssemblyLine.JPG',
+        bgImage: assets.AssemblyLine,
         link: 'https://github.com/klvuongg/Assembly-Line-System.git',
         video: '/AssemblyLine.mp4',
     },
@@ -135,7 +158,7 @@ export const projectData = [
         title: 'Library Application',
         description: ['A simple application replicating a library system, allowing users to add, remove, checkout, and return books.', 'Technologies used: C, Object-Oriented Programming, File Handling.'],
         id: 6,
-        bgImage: '/LibApp.JPG',
+        bgImage: assets.LibApp,
         link: 'https://github.com/klvuongg/Library-Application.git',
         video: '/LibApp.mp4',
     },
@@ -143,7 +166,7 @@ export const projectData = [
         title: 'BiteByte App',
         description: ['BiteByte: A successful hackathon collaboration delivering an accessible, AI-powered app. We teamed up to simplify blood sugar and meal tracking for the elderly through easy photo logging and automated insights.', 'Technologies used: Figma, React Native, GitHub'],
         id: 7,
-        bgImage: '/BiteByte.JPG',
+        bgImage: assets.BiteByte,
         link: 'https://github.com/klvuongg/BiteByte.git',
         video: '/BiteByte.mp4',
     },
@@ -155,8 +178,8 @@ export const infoList = [
 ]
 
 export const toolsData = [
-    { icon: assets.programming_languages, title: 'Languages, Frameworks and Libraries', description: ['C', 'C++', 'C#', 'Python', 'JavaScript', 'Java', 'HTML', 'CSS', 'XAML', 'React', 'Django', 'Node.js', 'Express.js', 'Spring Boot', 'Windows Presentation Foundation (WPF)', 'Bootstrap', 'Tailwind CSS'] },
-    { icon: assets.database, title: 'Databases', description: ['Oracle SQL', 'MongoDB', 'PostgreSQL' ] },
-    { icon: assets.operating_system, title: 'Operating System', description: ['Linux', 'Windows', 'Bash', 'PowerShell'] },
-    { icon: assets.tools, title: 'Other Tools', description: ['Jira', 'Visual Studio (2022)', 'Visual Studio Code', 'GitHub', 'TortoiseGit', 'PythonAnywhere', 'Vercel', 'Visual Paradigm', 'Figma', 'Canva']},
+    { icon: assets.programming_languages, iconDark: assets.programming_languages_dark, title: 'Languages, Frameworks and Libraries', description: ['C', 'C++', 'C#', 'Python', 'JavaScript', 'Java', 'HTML', 'CSS', 'XAML', 'React', 'Django', 'Node.js', 'Express.js', 'Spring Boot', 'Windows Presentation Foundation (WPF)', 'Bootstrap', 'Tailwind CSS'] },
+    { icon: assets.database, iconDark: assets.database_dark, title: 'Databases', description: ['Oracle SQL', 'MongoDB', 'PostgreSQL' ] },
+    { icon: assets.operating_system, iconDark: assets.operating_system_dark, title: 'Operating System', description: ['Linux', 'Windows', 'Bash', 'PowerShell'] },
+    { icon: assets.tools, iconDark: tools_dark, title: 'Other Tools', description: ['Jira', 'Visual Studio (2022)', 'Visual Studio Code', 'GitHub', 'TortoiseGit', 'PythonAnywhere', 'Vercel', 'Visual Paradigm', 'Figma', 'Canva']},
 ];

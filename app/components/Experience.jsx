@@ -25,8 +25,8 @@ const Experience = () => {
         rotateAmplitude={3}
         displayOverlayContent={true}
         overlayContent={
-          <div className='flex flex-col bg-white border border-gray-400 rounded-lg overflow-hidden hover:-translate-y-2 duration-500 hover:shadow-black p-10'>
-            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-2">
+          <div className='flex flex-col bg-white border border-gray-400 rounded-lg overflow-hidden hover:-translate-y-2 duration-500 hover:shadow-black p-10 dark:bg-darkTheme dark:border-white dark:hover:shadow-white dark:hover:bg-darkHover/50'>
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-2 dark:text-white">
                 <h4 className="text-3xl font-Outfit font-medium mb-2">Tester Co-op
                     <span className="mt-2 block lg:hidden text-base italic font-Outfit">May 2025 - Present</span>
                 </h4>
@@ -39,10 +39,10 @@ const Experience = () => {
                     <Image src={assets.ontario_public_service_leadership_logo} alt="" className="w-8" />
                 </a>
                 <a href="http://www.ontario.ca/">
-                    <h3 className="font-Outfit text-xl mt-1 font-medium hover:text-gray-600">Ontario Public Service | Government of Ontario</h3>
+                    <h3 className="font-Outfit text-xl mt-1 font-medium hover:text-gray-600 dark:text-white dark:hover:text-white/80">Ontario Public Service | Government of Ontario</h3>
                 </a>
             </div>
-                <ul className="list-disc list-inside space-y-2 text-left text-sm sm:text-base font-Outfit mt-5">
+                <ul className="list-disc list-inside space-y-2 text-left text-sm sm:text-base font-Outfit mt-5 dark:text-white">
                     <li>Understanding the Software Development Life Cycle (SDLC) from a testing perspective, recognizing where manual testing fits into each phase.</li>
                     <li>Operating within an Agile methodology, participating in sprint planning, daily stand-ups, and sprint reviews to align testing efforts with development cycles.</li>
                     <li>Translating user stories into detailed, executable test cases, ensuring comprehensive coverage for new features and changes.</li>

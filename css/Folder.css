@@ -1,6 +1,7 @@
 :root {
   --folder-color: #70a1ff;
-  --folder-back-color: #ffffff;
+  --folder-back-color: #FEFFC4;
+  --dark-folder-back-color: #dfe0b4;
   --paper-1: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
               url('/assets/paper_texture.png');
   --paper-2: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
@@ -119,6 +120,13 @@
   border-bottom: none;
 }
 
+.dark .folder__back {
+  background: var(--dark-folder-back-color);
+}
+.dark .folder__back::after {
+  background: var(--dark-folder-back-color);
+}
+
 .paper {
   position: absolute;
   z-index: 2;
@@ -174,4 +182,11 @@
 
 .folder:not(.folder--click):hover .folder__front.right {
   border-right: 1px solid #000000;
+}
+
+.dark .folder__front,
+.dark .folder__front.right,
+.dark.folder.open .folder__front.right,
+.dark .folder:not(.folder--click):hover .folder__front.right {
+  filter: brightness(0.88);
 }

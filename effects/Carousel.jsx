@@ -239,7 +239,7 @@ const ProjectCard = ({ project, style, isActive, onShowDemo, isMobile, isDraggin
         py-4 px-3 sm:py-3 sm:px-5 flex items-center justify-between duration-500 group-hover:bottom-5 sm:group-hover:bottom-7
         border border-gray-400 shadow-md'>
         <div className="flex-1 min-w-0 mr-2">
-          <h2 className='font-semibold text-sm sm:text-base truncate'>{project.title}</h2>
+          <h2 className='font-semibold text-sm sm:text-base truncate dark:text-black'>{project.title}</h2>
               {Array.isArray(project.description)
                     ? project.description.map((line, i) => {
                       if (line.startsWith("Technologies used:")) {
@@ -261,7 +261,7 @@ const ProjectCard = ({ project, style, isActive, onShowDemo, isMobile, isDraggin
               }
         </div>
 
-        <div className='flex gap-2 flex-shrink-0'>
+        <div className='flex gap-2 shrink-0'>
           <div className='border rounded-full border-black w-8 h-8 sm:w-11 sm:h-11
           aspect-square flex items-center justify-center shadow[2px_2px_0_#000] hover:bg-gray-300 transition'>
             <a href={project.link} target="_blank"><Image src={assets.github} alt='github icon' className='w-5 sm:w-8'></Image></a>
@@ -763,7 +763,7 @@ export default function ProjectsCarousel({
 
               {/* Demo description */}
               {demoProject.demoDescription && (
-                <div className="px-4 sm:px-6 pb-4 sm:pb-6 flex-shrink-0">
+                <div className="px-4 sm:px-6 pb-4 sm:pb-6 shrink-0">
                   <div className="rounded-lg p-3 sm:p-5 border border-gray-200">
                     {Array.isArray(demoProject.demoDescription) ? (
                       demoProject.demoDescription.map((line, i) => (
