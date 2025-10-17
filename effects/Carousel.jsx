@@ -12,7 +12,7 @@ const INSTANT_TRANSITION = { type: "tween", duration: 0 };
 const OVERLAY_DURATION = 5000; 
 
 // Instruction Overlay Component
-const InstructionOverlay = ({ isMobile }) => {
+const InstructionOverlay = ({ isMobile, isDarkMode }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -21,7 +21,7 @@ const InstructionOverlay = ({ isMobile }) => {
       transition={{ duration: 0.5 }}
       className="absolute inset-0 z-10 flex items-center justify-center"
       style={{
-        background: 'rgba(0, 0, 0, 0.7)',
+        background: isDarkMode ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.7)',
         backdropFilter: 'blur(4px)',
         borderRadius: '12px'
       }}
@@ -300,6 +300,7 @@ export default function ProjectsCarousel({
   containerBackgroundImage = null,
   activeIndicatorImage = null,
   inactiveIndicatorImage = null,
+  isDarkMode = false,
 }) {
   const extendedItems = loop ? [...items, ...items, ...items, ...items, ...items] : items;
   const startIndex = loop ? items.length * 2 : 0;
@@ -654,7 +655,7 @@ export default function ProjectsCarousel({
                   
                   {/* Show instruction overlay only on the first/center card */}
                   {isActiveCard && showInstructionOverlay && (
-                    <InstructionOverlay isMobile={isMobile} />
+                    <InstructionOverlay isMobile={isMobile} isDarkMode={isDarkMode} />
                   )}
                 </motion.div>
               );
@@ -681,6 +682,12 @@ export default function ProjectsCarousel({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  ...(isDarkMode && {
+                    backgroundColor: displayIndex === index ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.01)',
+                    borderRadius: '50%',
+                    border: displayIndex === index ? '1px solid rgba(255, 255, 255, 0.5)' : '0.5px solid rgba(255, 255, 255, 0.2)',
+                    boxShadow: displayIndex === index ? '0 0 10px rgba(255, 255, 255, 0.3)' : 'none',
+                  })
                 }}
               >
                 {(activeIndicatorImage && inactiveIndicatorImage) ? (
@@ -732,19 +739,23 @@ export default function ProjectsCarousel({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col overflow-hidden"
+              className='relative rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col overflow-hidden border'
+              style={{
+                backgroundColor: isDarkMode ? '#1d0033' : '#f0edf2', 
+                borderColor: isDarkMode ? 'border-white/40' : 'border-gray-200',
+              }}
             >
               {/* Close button */}
               <button
                 onClick={handleHideDemo}
-                className="absolute top-4 right-4 z-10 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition"
+                className={`absolute top-4 right-4 z-10 rounded-full p-2 shadow-lg hover:bg-gray-100 transition ${isDarkMode ? 'bg-black-100 hover:bg-gray-700' : 'bg-white hover:bg-gray-200'} cursor-pointer`}
               >
-                <Image src={assets.close_black} alt='close' className='w-4 cursor-pointer' />
+                <Image src={isDarkMode ? assets.close_white : assets.close_black} alt='close' className='w-4' />
               </button>
 
               {/* Project title */}
-              <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 border-b border-gray-200">
-                <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">{demoProject.title}</h3>
+            <div className={`px-4 sm:px-6 pt-4 sm:pt-6 pb-3 border-b ${isDarkMode ? 'border-white/45' : 'border-gray-200'}`}>
+                <h3 className={`text-xl sm:text-2xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{demoProject.title}</h3>
               </div>
               
               {/* Video container - takes most of the space */}
@@ -764,7 +775,7 @@ export default function ProjectsCarousel({
               {/* Demo description */}
               {demoProject.demoDescription && (
                 <div className="px-4 sm:px-6 pb-4 sm:pb-6 shrink-0">
-                  <div className="rounded-lg p-3 sm:p-5 border border-gray-200">
+                  <div className="rounded-lg p-3 sm:p-5">
                     {Array.isArray(demoProject.demoDescription) ? (
                       demoProject.demoDescription.map((line, i) => (
                         <p key={i} className="text-sm sm:text-lg font-Ovo mb-2 sm:mb-3 leading-relaxed last:mb-0">

@@ -54,13 +54,13 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
       </div>
 
       {/* Main navbar */}
-      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-2 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm dark:bg-darkTheme dark:shadow-white/20" : "bg-white shadow-sm"}`}>
+      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-2 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm dark:bg-darkTheme dark:shadow-white/20" : isDarkMode ? "bg-darkTheme shadow-sm" : "bg-white shadow-sm"}`}>
         <a href="#top">
           <Image src={isDarkMode ? assets.name_dark : assets.name} alt="" className='w-38 cursor-pointer mr-14' />
         </a>
 
         {/* Desktop Dock Navigation */}
-        <div className={`hidden lg:flex items-center gap-6 lg:gap-8 px-12 py-2 ${isScroll ? "" : "bg-white bg-opacity-50 dark:border dark:border-white/50 dark:bg-transparent"}`}>
+        <div className="hidden lg:flex items-center gap-6 lg:gap-8 px-12 py-2">
           <Dock
             items={dockItems.map(item => ({
               ...item,

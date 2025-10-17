@@ -2,7 +2,7 @@ import { assets, projectData } from '@/assets/assets'
 import React from 'react'
 import ProjectsCarousel from '@/effects/Carousel'
 
-const Projects = () => {
+const Projects = ({isDarkMode}) => {
   return (
     <div id='projects' className='w-full px-[3%] sm:px-[8%] md:px-[12%] py-10 scroll-mt-24'>
       <h4 className='text-center mb-2 text-lg font-Ovo'>
@@ -29,6 +29,7 @@ const Projects = () => {
           containerBackgroundImage={assets.container_bg} 
           activeIndicatorImage={assets.active_indicator}           
           inactiveIndicatorImage={assets.inactive_indicator}
+          isDarkMode={isDarkMode}
         />
       </div>
     </div>

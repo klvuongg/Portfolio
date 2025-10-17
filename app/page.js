@@ -11,25 +11,31 @@ import {useEffect, useState } from 'react';
 
 export default function Home() {
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(null);
+  useEffect(() => {
+    const isDark = (
+      localStorage.getItem('theme') === 'dark' || 
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    );
+    
+    setIsDarkMode(isDark);
+  }, []); 
 
   useEffect(() => {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setIsDarkMode(true);
-    } else {
-      setIsDarkMode(false);
-    }
-  }, []);
+    if (isDarkMode === null) return; 
 
-  useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.removeItem('theme', 'dark');
+      localStorage.setItem('theme', 'light'); 
     }
   }, [isDarkMode]);
+
+  if (isDarkMode === null) {
+    return null; 
+  }
 
   return (
     <>
