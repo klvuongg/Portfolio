@@ -2,6 +2,7 @@ import Folder from '@/effects/Folder'
 import Image from 'next/image'
 import { toolsData } from '@/assets/assets'
 import React, { useState } from 'react'
+import { motion } from 'motion/react'
 
 const Tools = ({isDarkMode}) => {
   const [open, setOpen] = useState(false);
@@ -28,16 +29,36 @@ const Tools = ({isDarkMode}) => {
   };
 
   return (
-    <section id="tools" className="w-full max-w-8xl mx-auto px-[8%] py-10 scroll-mt-24">
-      <h4 className="text-center mb-2 text-lg font-Ovo">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1}}
+      transition={{ duration: 1 }}
+      id="tools" className="w-full max-w-8xl mx-auto px-[8%] py-10 scroll-mt-24">
+      <motion.h4 
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0}}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="text-center mb-2 text-lg font-Ovo">
         Programming Languages and Tools I Use
-      </h4>
-      <h2 className="text-center text-5xl font-Ovo">My Tools</h2>
-      <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">
+      </motion.h4>
+      <motion.h2 
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0}}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        className="text-center text-5xl font-Ovo">My Tools</motion.h2>
+      <motion.p 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1}}
+        transition={{ duration: 0.5, delay: 0.7 }}
+        className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">
         Click the folder to explore the tools I use, displayed interactively.
-      </p>
+      </motion.p>
 
-      <div className="flex flex-col items-center">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1}}
+        transition={{ duration: 0.6, delay: 1.0 }}
+        className="flex flex-col items-center">
         {open && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 w-full max-w-8xl px-6 z-10 relative">
             {toolsData.map(({ icon, iconDark, title, description }, i) => (
@@ -75,7 +96,11 @@ const Tools = ({isDarkMode}) => {
         )}
 
         {/* Folder */}
-        <div className={`relative z-0 transition-all duration-500 ${
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1}}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className={`relative z-0 transition-all duration-500 ${
             open ? 'pt-60 pb-0' : 'py-60'} `}>
           <Folder 
             size={4} 
@@ -86,9 +111,9 @@ const Tools = ({isDarkMode}) => {
             onPaperLeave={handlePaperLeave}
             hoveredIndex={hoveredIndex}
           />
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

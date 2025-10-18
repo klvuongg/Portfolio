@@ -2,16 +2,40 @@ import { assets, infoList } from '@/assets/assets'
 import Image from 'next/image'
 import StickerPeel from '@/effects/StickerPeel'
 import React from 'react'
+import { motion } from 'motion/react'
 
 const About = ({isDarkMode}) => {
   return (
-    <div id='about' className='w-full px-[12%] py-10 pb-32 scroll-mt-24 relative'>
-      <h4 className='text-center mb-2 text-lg font-Ovo'>Introduction</h4>
-      <h2 className='text-center text-5xl font-Ovo'>About me</h2>
+    <motion.div id='about' className='w-full px-[12%] py-10 pb-32 scroll-mt-24 relative'
+      initial={{ opacity: 0}}
+      whileInView={{ opacity: 1}}
+      transition={{ duration: 1 }}
+    >
+      <motion.h4 className='text-center mb-2 text-lg font-Ovo'
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0}}
+        transition={{ duration: 1, delay: 0.3 }}
+      >
+        Introduction
+      </motion.h4>
+      <motion.h2 className='text-center text-5xl font-Ovo'
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0}}
+        transition={{ duration: 1, delay: 0.5 }}>
+        About me
+      </motion.h2>
 
-      <div className='flex w-full flex-col lg:flex-row items-center gap-20 my-20'>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1}}
+        transition={{ duration: 0.8 }}
+        className='flex w-full flex-col lg:flex-row items-center gap-20 my-20'>
         
-        <div className='relative w-64 sm:w-80 rounded-3xl max-w-none group sticker-parent'>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1}}
+          transition={{ duration: 0.6 }}
+          className='relative w-64 sm:w-80 rounded-3xl max-w-none group sticker-parent'>
           <Image
             src={assets.user_image}
             alt='user'
@@ -63,15 +87,24 @@ const About = ({isDarkMode}) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-        <div className='flex-1'>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className='flex-1'>
           <p className='mb-10 max-w-6xl font-Ovo'>
             I am a passionate, self-driven computer science student with an interest in building practical and meaningful full-stack applications
           </p>
-          <ul className='grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-6xl'>
+          <motion.ul 
+            initial={{ opacity: 0}}
+            whileInView={{ opacity: 1}}
+            transition={{ duration: 0.8, delay: 1 }}
+            className='grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-6xl'>
             {infoList.map(({ icon, iconDark, title, description }, index) => (
-              <li
+              <motion.li
+                whileInView={{ scale: 1.05 }}
                 key={index}
                 className='border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 
                 hover:shadow-black duration-500 dark:border-white dark:hover:shadow-white dark:hover:bg-darkHover/50'
@@ -85,17 +118,21 @@ const About = ({isDarkMode}) => {
                 ) : (
                   <p className='text-gray-600 text-md'>{description}</p>
                 )}
-              </li>
+              </motion.li>
             ))}
-          </ul>
-        </div>
-      </div>
+          </motion.ul>
+        </motion.div>
+      </motion.div>
 
       {/* Wow image */}
-      <div className='absolute right-15 bottom-0 -translate-y-20 z-10'>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0}}
+        transition={{ duration: 1, delay: 0.9 }}
+        className='absolute right-15 bottom-0 -translate-y-20 z-10'>
         <Image src={assets.wow} alt='' className='w-41' />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }
 

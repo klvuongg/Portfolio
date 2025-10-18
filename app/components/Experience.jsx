@@ -2,21 +2,42 @@ import { assets } from '@/assets/assets'
 import TiltedCard from '@/effects/TiltedCard'
 import Image from 'next/image'
 import React from 'react'
+import { motion } from 'motion/react'
 
 const Experience = () => {
   return (
-    <div id='experience' className='w-full px-[12%] py-10 scroll-mt-24'>
-      <h4 className='text-center mb-2 text-lg font-Ovo'>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1}}
+      transition={{ duration: 1 }}
+      id='experience' className='w-full px-[12%] py-10 scroll-mt-24'>
+      <motion.h4 
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0}}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className='text-center mb-2 text-lg font-Ovo'>
         My past experience
-      </h4>
-      <h2 className='text-center text-5xl font-Ovo'>
+      </motion.h4>
+      <motion.h2 
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0}}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        className='text-center text-5xl font-Ovo'>
         My Experience
-      </h2>
-      <p className='text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo'>
+      </motion.h2>
+      <motion.p 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1}}
+        transition={{ duration: 0.5, delay: 0.7 }}
+        className='text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo'>
         These are some of the positions I have had worked as during my co-op terms, where I gained valuable experience in software development and real-world applications.
-    </p>
+    </motion.p>
     
-    <div className='grid grid-cols-auto gap-6 my-20'>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1}}
+      transition={{ duration: 0.6, delay: 1.0 }}
+      className='grid grid-cols-auto gap-6 my-20'>
       <TiltedCard
         altText="OPS Experience"
         containerWidth="100%"
@@ -55,8 +76,8 @@ const Experience = () => {
           </div>
         }
       />
-    </div>
-  </div>
+    </motion.div>
+  </motion.div>
   )
 }
 

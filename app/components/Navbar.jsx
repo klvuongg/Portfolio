@@ -6,7 +6,12 @@ import React, { useState, useEffect, useRef } from 'react'
 const dockItems = [
   {
     label: 'Home',
-    onClick: () => window.location.hash = '#top',
+    onClick: () => {
+      if (window.location.hash === '#top' || window.location.hash === '') {
+       window.location.hash = ''; 
+      }
+       window.location.hash = '#top';
+    },
   },
   {
     label: 'About me',
@@ -28,7 +33,7 @@ const dockItems = [
 
 const Navbar = ({isDarkMode, setIsDarkMode}) => {
   const [isScroll, setIsScroll] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen] = useState(false);
   const sideMenuRef = useRef();
   const openMenu = () => {
     sideMenuRef.current.style.transform = 'translateX(-16rem)';
@@ -60,7 +65,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
         </a>
 
         {/* Desktop Dock Navigation */}
-        <div className="hidden lg:flex items-center gap-6 lg:gap-8 px-12 py-2">
+        <div className="hidden xl:flex items-center gap-6 lg:gap-8 px-12 py-2">
           <Dock
             items={dockItems.map(item => ({
               ...item,
@@ -77,7 +82,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
 
           <div className='relative group'>
             <a target='_blank' href="https://github.com/klvuongg">
-              <Image src={isDarkMode ? assets.github_dark : assets.github} alt='github icon' width={isDarkMode ? 32 : 30} height={35} />
+              <Image src={isDarkMode ? assets.github_dark : assets.github} alt='github icon' width={isDarkMode ? 31 : 30} height={35} />
             </a>
             <span className="absolute left-1/2 -translate-x-1/2 bottom-[-2.2rem] px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition pointer-events-none">
               GitHub
@@ -108,7 +113,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
           </button>
 
           {/* Hamburger menu for mobile */}
-          <button className='block lg:hidden ml-3' onClick={openMenu}>
+          <button className='block xl:hidden ml-3' onClick={openMenu}>
             <Image src={isDarkMode ? assets.menu_white : assets.menu_black} alt='menu' className='w-6 cursor-pointer' />
           </button>
         </div>
