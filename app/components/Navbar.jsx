@@ -31,7 +31,12 @@ const dockItems = [
   },
 ];
 
-const [isMobile, setIsMobile] = React.useState(false);
+
+const Navbar = ({isDarkMode, setIsDarkMode}) => {
+  const [isScroll, setIsScroll] = useState(false);
+  const [isMenuOpen] = useState(false);
+  const sideMenuRef = useRef();
+  const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
     const checkMobile = () => {
@@ -42,12 +47,6 @@ const [isMobile, setIsMobile] = React.useState(false);
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-
-const Navbar = ({isDarkMode, setIsDarkMode}) => {
-  const [isScroll, setIsScroll] = useState(false);
-  const [isMenuOpen] = useState(false);
-  const sideMenuRef = useRef();
   const openMenu = () => {
     sideMenuRef.current.style.transform = 'translateX(-16rem)';
   }
