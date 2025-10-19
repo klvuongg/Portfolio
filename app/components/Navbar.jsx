@@ -86,7 +86,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
           />
         </div>
 
-        <div className='flex items-center gap-4 lg:gap-6'>
+        <div className='flex items-center gap-2 lg:gap-6'>
           {/* Dark mode button - shows before social icons on mobile, after on desktop */}
           <button 
             onClick={() => setIsDarkMode(prev => !prev)} 
