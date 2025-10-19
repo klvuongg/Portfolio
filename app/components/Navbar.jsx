@@ -61,7 +61,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
       {/* Main navbar */}
       <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-2 flex items-center justify-between z-50 ${isScroll ? "bg-white-50/50 backdrop-blur-lg shadow-sm dark:bg-darkTheme dark:shadow-white/20" : isDarkMode ? "bg-darkTheme shadow-sm" : "bg-white shadow-sm"}`}>
         <a href="#top">
-          <Image src={isDarkMode ? assets.name_dark : assets.name} alt="" className='w-38 cursor-pointer mr-14' />
+          <Image src={isDarkMode ? assets.name_dark : assets.name} alt="" className='w-28 sm:w-32 md:w-36 lg:w-38 cursor-pointer mr-4 sm:mr-8 lg:mr-14' />
         </a>
 
         {/* Desktop Dock Navigation */}

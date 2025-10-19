@@ -110,7 +110,7 @@
   position: absolute;
   z-index: 0;
   bottom: 98%;
-  left: -1;
+  left: -1px;
   content: "";
   width: 32px;
   height: 12px;

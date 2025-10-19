@@ -5,6 +5,25 @@ import React from 'react'
 import { motion } from 'motion/react'
 
 const About = ({isDarkMode}) => {
+
+  const [selectedIndex, setSelectedIndex] = React.useState(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+
+  const handleCardClick = (index) => {
+    setSelectedIndex(selectedIndex === index ? null : index);
+  };
+  
   return (
     <motion.div id='about' className='w-full px-[12%] py-10 pb-32 scroll-mt-24 relative'
       initial={{ opacity: 0}}
@@ -74,7 +93,7 @@ const About = ({isDarkMode}) => {
                 className='absolute'
                 style={{
                   bottom: '115%',
-                  left: '-120%',
+                  left: isMobile ? '-60%' : '-120%',
                   transform: 'translateX(-50%)',
                   width: 'clamp(40px, 30vw, 200px)'
                 }}
@@ -108,9 +127,14 @@ const About = ({isDarkMode}) => {
             {infoList.map(({ icon, iconDark, title, description }, index) => (
               <motion.li
                 whileInView={{ scale: 1.05 }}
+                whileTap={{ scale: 1.05 }}
                 key={index}
-                className='border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 
-                hover:shadow-black duration-500 dark:border-white dark:hover:shadow-white dark:hover:bg-darkHover/50'
+                onClick={() => handleCardClick(index)}
+                className={`info-card border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer duration-500 dark:border-white
+                ${selectedIndex === index 
+                  ? 'bg-lightHover -translate-y-1 shadow-black dark:shadow-white dark:bg-darkHover/50' 
+                  : 'hover:bg-lightHover hover:-translate-y-1 hover:shadow-black dark:hover:shadow-white dark:hover:bg-darkHover/50'
+                }`}
               >
                 <Image src={isDarkMode ? iconDark : icon} alt={title} className='w-7 mt-3' />
                 <h3 className='my-4 font-semibold text-gray-700 dark:text-white'>{title}</h3>
@@ -132,7 +156,7 @@ const About = ({isDarkMode}) => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 1, delay: 0.9 }}
-        className='absolute right-15 bottom-0 -translate-y-20 z-10'>
+        className='absolute right-15 bottom-0 translate-y-8 sm:translate-y-4 lg:-translate-y-20 z-10'>
         <Image src={assets.wow} alt='' className='w-41' />
       </motion.div>
     </motion.div>

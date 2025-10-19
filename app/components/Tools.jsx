@@ -7,9 +7,28 @@ import { motion } from 'motion/react'
 const Tools = ({isDarkMode}) => {
   const [open, setOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const toolsSectionRef = React.useRef(null);
 
   const handleToggle = () => {
-    setOpen(prev => !prev);
+    setOpen(prev => {
+      const newState = !prev;
+      
+      // If closing the folder, scroll to keep it in view
+      if (prev === true && toolsSectionRef.current) {
+        setTimeout(() => {
+          const section = toolsSectionRef.current;
+          const sectionTop = section.offsetTop;
+          const scrollOffset = 100; // Offset for navbar
+          
+          window.scrollTo({
+            top: sectionTop - scrollOffset,
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+      
+      return newState;
+    });
   };
 
   const handlePaperHover = (index) => {
@@ -30,6 +49,7 @@ const Tools = ({isDarkMode}) => {
 
   return (
     <motion.div
+      ref={toolsSectionRef}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1}}
       transition={{ duration: 1 }}
@@ -100,8 +120,8 @@ const Tools = ({isDarkMode}) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1}}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className={`relative z-0 transition-all duration-500 ${
-            open ? 'pt-60 pb-0' : 'py-60'} `}>
+          className={`relative z-0 transition-all duration-500 mx-4 sm:mx-0 ${
+            open ? 'pt-60 pb-0' : 'py-40 sm:py-60'} `}>
           <Folder 
             size={4} 
             items={[]} 
