@@ -74,7 +74,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
           />
         </div>
 
-        <div className='flex items-center gap-6'>
+        <div className='flex items-center gap-4 lg:gap-6'>
           {/* Dark mode button - shows before social icons on mobile, after on desktop */}
           <button onClick={() => setIsDarkMode(prev => !prev)} className='lg:hidden'>
             <Image src={isDarkMode ? assets.bunny_awake : assets.bunny_sleeping} alt='dark mode' className='w-8 cursor-pointer' />
@@ -113,7 +113,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
           </button>
 
           {/* Hamburger menu for mobile */}
-          <button className='block xl:hidden ml-3' onClick={openMenu}>
+          <button className='block xl:hidden ml-2' onClick={openMenu}>
             <Image src={isDarkMode ? assets.menu_white : assets.menu_black} alt='menu' className='w-6 cursor-pointer' />
           </button>
         </div>

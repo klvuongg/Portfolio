@@ -8,6 +8,18 @@ const Tools = ({isDarkMode}) => {
   const [open, setOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const toolsSectionRef = React.useRef(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+  
+    React.useEffect(() => {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 1024);
+      };
+      
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+  
 
   const handleToggle = () => {
     setOpen(prev => {
@@ -120,10 +132,10 @@ const Tools = ({isDarkMode}) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1}}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className={`relative z-0 transition-all duration-500 mx-4 sm:mx-0 ${
+          className={`relative z-0 transition-all duration-500 ${
             open ? 'pt-60 pb-0' : 'py-40 sm:py-60'} `}>
           <Folder 
-            size={4} 
+            size={isMobile ? 2.5: 4} 
             items={[]} 
             isOpen={open} 
             onToggle={handleToggle}

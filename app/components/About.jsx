@@ -156,7 +156,7 @@ const About = ({isDarkMode}) => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 1, delay: 0.9 }}
-        className='absolute right-15 bottom-0 translate-y-8 sm:translate-y-4 lg:-translate-y-20 z-10'>
+        className='absolute right-15 bottom-0 translate-y-4 sm:translate-y-2 lg:-translate-y-20 z-10'>
         <Image src={assets.wow} alt='' className='w-41' />
       </motion.div>
     </motion.div>
