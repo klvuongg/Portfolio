@@ -135,7 +135,7 @@ const Tools = ({isDarkMode}) => {
           className={`relative z-0 transition-all duration-500 ${
             open ? 'pt-60 pb-0' : 'py-40 sm:py-60'} `}>
           <Folder 
-            size={isMobile ? 2.5: 4} 
+            size={isMobile ? 3: 4} 
             items={[]} 
             isOpen={open} 
             onToggle={handleToggle}

@@ -31,6 +31,19 @@ const dockItems = [
   },
 ];
 
+const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+
 const Navbar = ({isDarkMode, setIsDarkMode}) => {
   const [isScroll, setIsScroll] = useState(false);
   const [isMenuOpen] = useState(false);
@@ -76,11 +89,14 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
 
         <div className='flex items-center gap-4 lg:gap-6'>
           {/* Dark mode button - shows before social icons on mobile, after on desktop */}
-          <button onClick={() => setIsDarkMode(prev => !prev)} className='lg:hidden'>
+          <button 
+            onClick={() => setIsDarkMode(prev => !prev)} 
+            className='lg:hidden'
+            style={{ transform: isMobile ? 'scale(0.8)' : 'scale(1)' }}>
             <Image src={isDarkMode ? assets.bunny_awake : assets.bunny_sleeping} alt='dark mode' className='w-8 cursor-pointer' />
           </button>
 
-          <div className='relative group'>
+          <div className='relative group' style={{ transform: isMobile ? 'scale(0.8)' : 'scale(1)' }}>
             <a target='_blank' href="https://github.com/klvuongg">
               <Image src={isDarkMode ? assets.github_dark : assets.github} alt='github icon' width={isDarkMode ? 31 : 30} height={35} />
             </a>
@@ -89,7 +105,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
             </span>
           </div>
 
-          <div className='relative group'>
+          <div className='relative group' style={{ transform: isMobile ? 'scale(0.8)' : 'scale(1)' }}>
             <a target='_blank' href="https://www.linkedin.com/in/kaitlyn-vuong-7901222a6?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BaYwCzJnGQpacpsropzkdsQ%3D%3D">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg" width={30} height={35} />
             </a>
@@ -98,7 +114,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
             </span>
           </div>
 
-          <div className='relative group'>
+          <div className='relative group' style={{ transform: isMobile ? 'scale(0.8)' : 'scale(1)' }}>
             <a href="#contact">
               <img src="https://www.gstatic.com/marketing-cms/assets/images/66/ac/14b165e647fd85c824bfbe5d6bc5/gmail.webp=s96-fcrop64=1,00000000ffffffff-rw" width={30} height={35} />
             </a>
@@ -108,12 +124,15 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
           </div>
 
           {/* Dark mode button - shows after social icons on desktop only */}
-          <button onClick={() => setIsDarkMode(prev => !prev)} className='hidden lg:block lg:ml-8'>
+          <button 
+            onClick={() => setIsDarkMode(prev => !prev)} 
+            className='hidden lg:block lg:ml-8'
+            style={{ transform: isMobile ? 'scale(0.8)' : 'scale(1)' }}>
             <Image src={isDarkMode ? assets.bunny_awake : assets.bunny_sleeping} alt='dark mode' className='w-8 cursor-pointer' />
           </button>
 
           {/* Hamburger menu for mobile */}
-          <button className='block xl:hidden ml-2' onClick={openMenu}>
+          <button className='block xl:hidden ml-2' onClick={openMenu} style={{ transform: isMobile ? 'scale(0.8)' : 'scale(1)' }}>
             <Image src={isDarkMode ? assets.menu_white : assets.menu_black} alt='menu' className='w-6 cursor-pointer' />
           </button>
         </div>
