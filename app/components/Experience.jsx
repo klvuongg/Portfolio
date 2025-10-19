@@ -16,7 +16,7 @@ const Experience = () => {
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 0.5, delay: 0.3 }}
         className='text-center mb-2 text-lg font-Ovo'>
-        My past experience
+        My Professional Hops
       </motion.h4>
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
@@ -29,8 +29,8 @@ const Experience = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1}}
         transition={{ duration: 0.5, delay: 0.7 }}
-        className='text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo'>
-        These are some of the positions I have had worked as during my co-op terms, where I gained valuable experience in software development and real-world applications.
+        className='text-center max-w-4xl mx-auto mt-5 mb-12 font-Ovo'>
+        Every great journey starts with a first hop! This experience has given me a <strong>solid paw-hold</strong> in the software industry, teaching me how to collaborate, think critically, and deliver robust applications through the co-op program.
     </motion.p>
     
     <motion.div 
@@ -69,7 +69,7 @@ const Experience = () => {
                     <li>Translating user stories into detailed, executable test cases, ensuring comprehensive coverage for new features and changes.</li>
                     <li>Identifying, documenting, and tracking bugs and related issues in Jira, including steps to reproduce, actual vs. expected results, and severity/priority.</li>
                     <li>Writing clear, concise, and reproducible test steps for manual execution, outlining expected results and identifying edge cases.</li>
-                    <li>Manually executing test cases meticulously to verify functionality, usability, and adherence to defined requirements.</li>
+                    <li>Utilizing SQL Server Management Studio (SSMS) to write and execute complex queries, retrieving and manipulating database records to validate test data and ensure data integrity during testing cycles.</li>
                     <li>Collaborating closely with product owners, developers, and other team members within the Agile framework to clarify requirements, discuss system behavior, and ensure quality deliverables.</li>
                     <li>Performing thorough regression testing to confirm that new features or bug fixes do not introduce defects into existing functionalities.</li>
                 </ul>

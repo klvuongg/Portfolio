@@ -15,7 +15,7 @@ const Projects = ({isDarkMode}) => {
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 0.5, delay: 0.3 }}
         className='text-center mb-2 text-lg font-Ovo'>
-        My small archive of projects
+        My Warren of Creations
       </motion.h4>
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
@@ -28,9 +28,9 @@ const Projects = ({isDarkMode}) => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1}}
         transition={{ duration: 0.5, delay: 0.7 }}
-        className='text-center max-w-2xl mx-auto mt-5 mb-8 sm:mb-12 font-Ovo px-4 sm:px-0'>
-        These are some of the projects I have worked on, showcasing my skills in full-stack development 
-        and my passion for creating practical applications.
+        className='text-center max-w-4xl mx-auto mt-5 mb-8 sm:mb-12 font-Ovo px-4 sm:px-0'>
+        Time for show and tell! Scroll through this carousel to see where I turn code into reality. 
+        These projects are my proof-of-concept, demonstrating my <strong>passion for full-stack development</strong> and <strong>crafting useful, complete applications</strong>. 🚀
       </motion.p>
       
       <motion.div 

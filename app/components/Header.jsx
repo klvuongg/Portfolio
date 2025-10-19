@@ -46,7 +46,7 @@ const Header = () => {
         whileInView={{ opacity: 1}}
         transition={{ duration: 0.6, delay: 0.7}}
         className='max-w-2xl mx-auto font-Ovo'>
-        I am a computer science student from Toronto, Canada with a passion in full-stack development.
+        I'm a <strong>full-stack enthusiast</strong> and Computer Science student in Toronto, hopping into the digital world to craft clean, functional, and delightful user experiences.
       </motion.p>
       <div className='flex flex-col sm:flex-row items-center gap-4 mt-4'>
         <motion.a 
@@ -61,7 +61,7 @@ const Header = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.2}} 
-          href="/sample-resume.pdf" download
+          href="/Resume.pdf" download
           className='px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2 bg-white dark:text-black'>
             My resume <Image src={assets.download_icon} alt='' className='w-4' />
         </motion.a>

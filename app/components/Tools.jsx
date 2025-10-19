@@ -39,7 +39,7 @@ const Tools = ({isDarkMode}) => {
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 0.5, delay: 0.3 }}
         className="text-center mb-2 text-lg font-Ovo">
-        Programming Languages and Tools I Use
+        What's in the Toolbox?
       </motion.h4>
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
@@ -50,8 +50,8 @@ const Tools = ({isDarkMode}) => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1}}
         transition={{ duration: 0.5, delay: 0.7 }}
-        className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">
-        Click the folder to explore the tools I use, displayed interactively.
+        className="text-center max-w-3xl mx-auto mt-5 mb-12 font-Ovo">
+        Ready to hop down the <strong>rabbit hole of my skillset</strong>? This folder holds the <strong>essential languages, frameworks, and databases</strong> I leverage every day. <strong>Click to open</strong> and explore the tools behind the magic!
       </motion.p>
 
       <motion.div 

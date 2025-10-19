@@ -16,7 +16,7 @@ const About = ({isDarkMode}) => {
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 1, delay: 0.3 }}
       >
-        Introduction
+        A Warm Welcome
       </motion.h4>
       <motion.h2 className='text-center text-5xl font-Ovo'
         initial={{ opacity: 0, y: -20 }}
@@ -95,7 +95,10 @@ const About = ({isDarkMode}) => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className='flex-1'>
           <p className='mb-10 max-w-6xl font-Ovo'>
-            I am a passionate, self-driven computer science student with an interest in building practical and meaningful full-stack applications
+            My journey began with an <strong>early exposure</strong> and a <strong>curious mind</strong> on how technology fundamentally shaped our world. This quickly evolved 
+            into a fascination with the <strong>impact tech has on our daily lives</strong>, leaving me constantly amazed at how it eases and improves human experience. This drive 
+            led me to pursue <strong>software development</strong>, as it perfectly combines my <strong>attention to details</strong> and my commitment to <strong>building 
+            solutions that make a real impact</strong>. I’m a dedicated learner, constantly applying my knowledge in languages like C++, Java, and SQL to bring practical, meaningful full-stack applications to life.
           </p>
           <motion.ul 
             initial={{ opacity: 0}}

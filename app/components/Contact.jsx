@@ -42,7 +42,7 @@ const Contact = () => {
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 0.5, delay: 0.3 }}
         className='text-center mb-2 text-lg font-Ovo'>
-        Connect with me
+        Let's Talk Code & Carrots
       </motion.h4>
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
@@ -56,7 +56,7 @@ const Contact = () => {
         whileInView={{ opacity: 1}}
         transition={{ duration: 0.5, delay: 0.7 }}
         className='text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo'>
-        I'd love to hear from you! Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out.
+        I'm always eager to collaborate, discuss new tech, or answer any questions you may have. Feel free to reach out - I promise a quick hop back to your inbox!
     </motion.p>
     <motion.form 
       initial={{ opacity: 0 }}

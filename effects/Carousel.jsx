@@ -774,7 +774,7 @@ export default function ProjectsCarousel({
 
               {/* Demo description */}
               {demoProject.demoDescription && (
-                <div className="px-4 sm:px-6 pb-4 sm:pb-6 shrink-0">
+                <div className="px-4 sm:px-6 pb-4 sm:pb-6 shrink-0 max-h-48 overflow-y-auto">
                   <div className="rounded-lg p-3 sm:p-5">
                     {Array.isArray(demoProject.demoDescription) ? (
                       demoProject.demoDescription.map((line, i) => (
